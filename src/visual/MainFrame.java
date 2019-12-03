@@ -9,7 +9,7 @@ public class MainFrame extends javax.swing.JFrame {
     
     Connect connect = new Connect();
     Connection database;
-
+    
     public void setDatabase(Connection database) {
         this.database = database;
         atualizaTabelas();
@@ -30,10 +30,13 @@ public class MainFrame extends javax.swing.JFrame {
         panelProducts = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         tableProducts = new javax.swing.JTable();
-        panelStock = new javax.swing.JPanel();
+        btnAddProduct = new javax.swing.JButton();
+        btnEditProduct = new javax.swing.JButton();
+        btnDeleteProduct = new javax.swing.JButton();
         panelClients = new javax.swing.JPanel();
         panelSales = new javax.swing.JPanel();
         panelEmployees = new javax.swing.JPanel();
+        panelProviders = new javax.swing.JPanel();
         panelReports = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -42,16 +45,54 @@ public class MainFrame extends javax.swing.JFrame {
         labelLogo.setText("Logo");
 
         org.jdesktop.swingbinding.JTableBinding jTableBinding = org.jdesktop.swingbinding.SwingBindings.createJTableBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, listProducts, tableProducts);
-        org.jdesktop.swingbinding.JTableBinding.ColumnBinding columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${name}"));
+        org.jdesktop.swingbinding.JTableBinding.ColumnBinding columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${id}"));
+        columnBinding.setColumnName("Código");
+        columnBinding.setColumnClass(Integer.class);
+        columnBinding.setEditable(false);
+        columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${name}"));
         columnBinding.setColumnName("Nome");
         columnBinding.setColumnClass(String.class);
         columnBinding.setEditable(false);
         columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${cost}"));
         columnBinding.setColumnName("Preço");
         columnBinding.setEditable(false);
+        columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${percentProfit}"));
+        columnBinding.setColumnName("% de lucro");
+        columnBinding.setColumnClass(Float.class);
+        columnBinding.setEditable(false);
+        columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${productExpense}"));
+        columnBinding.setColumnName("Custo Adicional");
+        columnBinding.setEditable(false);
+        columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${salePrice}"));
+        columnBinding.setColumnName("Preço de Venda");
+        columnBinding.setEditable(false);
+        columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${quantity}"));
+        columnBinding.setColumnName("Quantidade");
+        columnBinding.setColumnClass(Integer.class);
+        columnBinding.setEditable(false);
+        columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${idProvider}"));
+        columnBinding.setColumnName("IDFornecedor");
+        columnBinding.setColumnClass(Integer.class);
+        columnBinding.setEditable(false);
         bindingGroup.addBinding(jTableBinding);
         jTableBinding.bind();
         jScrollPane1.setViewportView(tableProducts);
+        if (tableProducts.getColumnModel().getColumnCount() > 0) {
+            tableProducts.getColumnModel().getColumn(0).setMaxWidth(50);
+            tableProducts.getColumnModel().getColumn(1).setMinWidth(150);
+            tableProducts.getColumnModel().getColumn(2).setMaxWidth(100);
+            tableProducts.getColumnModel().getColumn(3).setMaxWidth(70);
+            tableProducts.getColumnModel().getColumn(4).setMinWidth(100);
+            tableProducts.getColumnModel().getColumn(5).setMinWidth(100);
+            tableProducts.getColumnModel().getColumn(6).setMaxWidth(70);
+            tableProducts.getColumnModel().getColumn(7).setMaxWidth(70);
+        }
+
+        btnAddProduct.setText("ADICIONAR PRODUTO");
+
+        btnEditProduct.setText("EDITAR PRODUTO");
+
+        btnDeleteProduct.setText("EXCLUIR PRODUTO");
 
         javax.swing.GroupLayout panelProductsLayout = new javax.swing.GroupLayout(panelProducts);
         panelProducts.setLayout(panelProductsLayout);
@@ -59,37 +100,37 @@ public class MainFrame extends javax.swing.JFrame {
             panelProductsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelProductsLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 541, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(224, Short.MAX_VALUE))
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 903, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(panelProductsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(btnAddProduct, javax.swing.GroupLayout.DEFAULT_SIZE, 147, Short.MAX_VALUE)
+                    .addComponent(btnEditProduct, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnDeleteProduct, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
         );
         panelProductsLayout.setVerticalGroup(
             panelProductsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelProductsLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(15, Short.MAX_VALUE))
+                .addGroup(panelProductsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(panelProductsLayout.createSequentialGroup()
+                        .addComponent(btnAddProduct)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(btnEditProduct)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(btnDeleteProduct)
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 431, Short.MAX_VALUE))
+                .addContainerGap())
         );
 
         mainTabPanel.addTab("PRODUTOS", panelProducts);
-
-        javax.swing.GroupLayout panelStockLayout = new javax.swing.GroupLayout(panelStock);
-        panelStock.setLayout(panelStockLayout);
-        panelStockLayout.setHorizontalGroup(
-            panelStockLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 775, Short.MAX_VALUE)
-        );
-        panelStockLayout.setVerticalGroup(
-            panelStockLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 453, Short.MAX_VALUE)
-        );
-
-        mainTabPanel.addTab("ESTOQUE", panelStock);
 
         javax.swing.GroupLayout panelClientsLayout = new javax.swing.GroupLayout(panelClients);
         panelClients.setLayout(panelClientsLayout);
         panelClientsLayout.setHorizontalGroup(
             panelClientsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 775, Short.MAX_VALUE)
+            .addGap(0, 1076, Short.MAX_VALUE)
         );
         panelClientsLayout.setVerticalGroup(
             panelClientsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -102,7 +143,7 @@ public class MainFrame extends javax.swing.JFrame {
         panelSales.setLayout(panelSalesLayout);
         panelSalesLayout.setHorizontalGroup(
             panelSalesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 775, Short.MAX_VALUE)
+            .addGap(0, 1076, Short.MAX_VALUE)
         );
         panelSalesLayout.setVerticalGroup(
             panelSalesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -115,7 +156,7 @@ public class MainFrame extends javax.swing.JFrame {
         panelEmployees.setLayout(panelEmployeesLayout);
         panelEmployeesLayout.setHorizontalGroup(
             panelEmployeesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 775, Short.MAX_VALUE)
+            .addGap(0, 1076, Short.MAX_VALUE)
         );
         panelEmployeesLayout.setVerticalGroup(
             panelEmployeesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -124,11 +165,24 @@ public class MainFrame extends javax.swing.JFrame {
 
         mainTabPanel.addTab("FUNCIONÁRIOS", panelEmployees);
 
+        javax.swing.GroupLayout panelProvidersLayout = new javax.swing.GroupLayout(panelProviders);
+        panelProviders.setLayout(panelProvidersLayout);
+        panelProvidersLayout.setHorizontalGroup(
+            panelProvidersLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 1076, Short.MAX_VALUE)
+        );
+        panelProvidersLayout.setVerticalGroup(
+            panelProvidersLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 453, Short.MAX_VALUE)
+        );
+
+        mainTabPanel.addTab("FORNECEDORES", panelProviders);
+
         javax.swing.GroupLayout panelReportsLayout = new javax.swing.GroupLayout(panelReports);
         panelReports.setLayout(panelReportsLayout);
         panelReportsLayout.setHorizontalGroup(
             panelReportsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 775, Short.MAX_VALUE)
+            .addGap(0, 1076, Short.MAX_VALUE)
         );
         panelReportsLayout.setVerticalGroup(
             panelReportsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -156,7 +210,7 @@ public class MainFrame extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(labelLogo, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(mainTabPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 481, Short.MAX_VALUE)
+                .addComponent(mainTabPanel)
                 .addContainerGap())
         );
 
@@ -202,6 +256,9 @@ public class MainFrame extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnAddProduct;
+    private javax.swing.JButton btnDeleteProduct;
+    private javax.swing.JButton btnEditProduct;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel labelLogo;
     private java.util.List<Product> listProducts;
@@ -209,9 +266,9 @@ public class MainFrame extends javax.swing.JFrame {
     private javax.swing.JPanel panelClients;
     private javax.swing.JPanel panelEmployees;
     private javax.swing.JPanel panelProducts;
+    private javax.swing.JPanel panelProviders;
     private javax.swing.JPanel panelReports;
     private javax.swing.JPanel panelSales;
-    private javax.swing.JPanel panelStock;
     private javax.swing.JTable tableProducts;
     private org.jdesktop.beansbinding.BindingGroup bindingGroup;
     // End of variables declaration//GEN-END:variables

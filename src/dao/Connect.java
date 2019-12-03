@@ -48,7 +48,7 @@ public class Connect {
     
     public static boolean login(String name, String password) {
         try {
-            String query = "SELECT * FROM user where name = '" + name + "' and password = '" + password + "'";
+            String query = "SELECT * FROM user where username = '" + name + "' and password = '" + password + "'";
  
             PreparedStatement preparedStatement = getPreparedStatement(query);
             ResultSet resultSet = preparedStatement.executeQuery();
@@ -69,15 +69,29 @@ public class Connect {
     }
     
     public List<Product> getListProduct() {
-        String sql = "select * from products";
+        String sql = "select * from product";
         List<Product> lista = new ArrayList<>();
         try{
             PreparedStatement pst = getPreparedStatement(sql);
             ResultSet rs = pst.executeQuery();
             while(rs.next()){
                 Product obj = new Product();
+                   int id;
+    String name;
+    float cost;
+    float percentProfit;
+    float productExpenses;
+    float priceSale;
+    int quantity;
+    int idProvider;
+                obj.setId(rs.getInt("idProduct"));
                 obj.setName(rs.getString("name"));
                 obj.setCost(rs.getFloat("cost"));
+                obj.setPercentProfit(rs.getFloat("percentProfit"));
+                obj.setProductExpense(rs.getFloat("productExpense"));
+                obj.setPriceSale(rs.getFloat("priceSale"));
+                obj.setQuantity(rs.getInt("quantity"));
+                obj.setIdProvider(rs.getInt("provider_idProvider"));
                 lista.add(obj);
             }
         }catch (SQLException e){

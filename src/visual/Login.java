@@ -10,6 +10,8 @@ public class Login extends javax.swing.JFrame {
 
     public Login() {
         initComponents();
+        this.getRootPane().setDefaultButton(btnEnviar);
+
     }
 
     @SuppressWarnings("unchecked")
@@ -37,6 +39,10 @@ public class Login extends javax.swing.JFrame {
                 btnEnviarActionPerformed(evt);
             }
         });
+
+        txtLogin.setText("mleitejunior");
+
+        txtPassword.setText("1234");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);

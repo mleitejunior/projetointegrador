@@ -5,9 +5,18 @@ public class Product {
     String name;
     float cost;
     float percentProfit;
-    float productExpenses;
+    float productExpense;
     float priceSale;
     int quantity;
+    int idProvider;
+
+    public int getIdProvider() {
+        return idProvider;
+    }
+
+    public void setIdProvider(int idProvider) {
+        this.idProvider = idProvider;
+    }
 
     public int getId() {
         return id;
@@ -41,12 +50,12 @@ public class Product {
         this.percentProfit = percentProfit;
     }
 
-    public float getProductExpenses() {
-        return productExpenses;
+    public float getProductExpense() {
+        return productExpense;
     }
 
-    public void setProductExpenses(float productExpenses) {
-        this.productExpenses = productExpenses;
+    public void setProductExpense(float productExpenses) {
+        this.productExpense = productExpenses;
     }
 
     public float getPriceSale() {
@@ -64,6 +73,4 @@ public class Product {
     public void setQuantity(int quantity) {
         this.quantity = quantity;
     }
-    
-    
 }
