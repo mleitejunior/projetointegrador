@@ -76,14 +76,6 @@ public class Connect {
             ResultSet rs = pst.executeQuery();
             while(rs.next()){
                 Product obj = new Product();
-                   int id;
-    String name;
-    float cost;
-    float percentProfit;
-    float productExpenses;
-    float priceSale;
-    int quantity;
-    int idProvider;
                 obj.setId(rs.getInt("idProduct"));
                 obj.setName(rs.getString("name"));
                 obj.setCost(rs.getDouble("cost"));

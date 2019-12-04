@@ -38,6 +38,7 @@ public class MainFrame extends javax.swing.JFrame {
         panelEmployees = new javax.swing.JPanel();
         panelProviders = new javax.swing.JPanel();
         panelReports = new javax.swing.JPanel();
+        btnReportProductSale = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -178,15 +179,28 @@ public class MainFrame extends javax.swing.JFrame {
 
         mainTabPanel.addTab("FORNECEDORES", panelProviders);
 
+        btnReportProductSale.setText("RELATÓRIO DE PRODUTOS MAIS VENDIDOS NO MÊS");
+        btnReportProductSale.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnReportProductSaleActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout panelReportsLayout = new javax.swing.GroupLayout(panelReports);
         panelReports.setLayout(panelReportsLayout);
         panelReportsLayout.setHorizontalGroup(
             panelReportsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 1076, Short.MAX_VALUE)
+            .addGroup(panelReportsLayout.createSequentialGroup()
+                .addGap(173, 173, 173)
+                .addComponent(btnReportProductSale, javax.swing.GroupLayout.PREFERRED_SIZE, 512, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(391, Short.MAX_VALUE))
         );
         panelReportsLayout.setVerticalGroup(
             panelReportsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 453, Short.MAX_VALUE)
+            .addGroup(panelReportsLayout.createSequentialGroup()
+                .addGap(34, 34, 34)
+                .addComponent(btnReportProductSale)
+                .addContainerGap(396, Short.MAX_VALUE))
         );
 
         mainTabPanel.addTab("RELATÓRIOS", panelReports);
@@ -218,6 +232,10 @@ public class MainFrame extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void btnReportProductSaleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReportProductSaleActionPerformed
+        
+    }//GEN-LAST:event_btnReportProductSaleActionPerformed
 
     /**
      * @param args the command line arguments
@@ -259,6 +277,7 @@ public class MainFrame extends javax.swing.JFrame {
     private javax.swing.JButton btnAddProduct;
     private javax.swing.JButton btnDeleteProduct;
     private javax.swing.JButton btnEditProduct;
+    private javax.swing.JButton btnReportProductSale;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel labelLogo;
     private java.util.List<Product> listProducts;
