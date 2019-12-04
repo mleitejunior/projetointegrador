@@ -11,11 +11,9 @@ import org.jfree.data.general.DefaultPieDataset;
 import org.jfree.data.general.PieDataset;
 
 
-public class ReportProductSale extends JFrame {
+public class ReportMontlhyExpenses extends JFrame {
 
-    private static final long serialVersionUID = 1L;
-
-    public ReportProductSale(String applicationTitle, String chartTitle) {
+    public ReportMontlhyExpenses(String applicationTitle, String chartTitle) {
         super(applicationTitle);
         // This will create the dataset
         PieDataset dataset = createDataset();
@@ -60,6 +58,14 @@ public class ReportProductSale extends JFrame {
         plot.setStartAngle(290);
         plot.setDirection(Rotation.CLOCKWISE);
         plot.setForegroundAlpha(0.5f);
+        
+        final ChartPanel chartPanel = new ChartPanel(chart);
+        chartPanel.setPreferredSize(new java.awt.Dimension(500, 270));
+        setContentPane(chartPanel);
+
+        final Rotator rotator = new Rotator(plot);
+        rotator.start();
+        
         return chart;
 
     }
