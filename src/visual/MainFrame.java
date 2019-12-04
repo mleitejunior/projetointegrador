@@ -3,7 +3,7 @@ package visual;
 import dao.Connect;
 import java.sql.Connection;
 import java.util.ArrayList;
-import model.Product;
+import model.entities.Product;
 
 public class MainFrame extends javax.swing.JFrame {
     

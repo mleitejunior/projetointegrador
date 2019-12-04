@@ -8,7 +8,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JOptionPane;
-import model.Product;
+import model.entities.Product;
 
 public class Connect {
     private static final String sqlAdress ="jdbc:mysql://localhost:3306/sevensales";
@@ -86,10 +86,10 @@ public class Connect {
     int idProvider;
                 obj.setId(rs.getInt("idProduct"));
                 obj.setName(rs.getString("name"));
-                obj.setCost(rs.getFloat("cost"));
-                obj.setPercentProfit(rs.getFloat("percentProfit"));
-                obj.setProductExpense(rs.getFloat("productExpense"));
-                obj.setPriceSale(rs.getFloat("priceSale"));
+                obj.setCost(rs.getDouble("cost"));
+                obj.setPercentProfit(rs.getDouble("percentProfit"));
+                obj.setProductExpense(rs.getDouble("productExpense"));
+                obj.setPriceSale(rs.getDouble("priceSale"));
                 obj.setQuantity(rs.getInt("quantity"));
                 obj.setIdProvider(rs.getInt("provider_idProvider"));
                 lista.add(obj);
