@@ -1,7 +1,12 @@
-package visual;
+package visual.reports;
 
+// 5 - PORCENTAGEM DOS TIPOS DE GASTO MENSAL
+// GRAFICO DO TIPO 3DPIECHART COM ROTATOR
+
+import java.util.List;
+import resources.Rotator;
 import javax.swing.JFrame;
-
+import model.entities.Sale;
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.ChartPanel;
 import org.jfree.chart.JFreeChart;
@@ -11,22 +16,22 @@ import org.jfree.data.general.DefaultPieDataset;
 import org.jfree.data.general.PieDataset;
 
 
-public class ReportMontlhyExpenses extends JFrame {
-
-    public ReportMontlhyExpenses(String applicationTitle, String chartTitle) {
+public class ReportTypePayments extends JFrame {
+    List<Sale> sales;
+    
+    public ReportTypePayments(String applicationTitle, String chartTitle, List<Sale> sales) {
         super(applicationTitle);
-        // This will create the dataset
+        
+        this.sales = sales;
         PieDataset dataset = createDataset();
-        // based on the dataset we create the chart
         JFreeChart chart = createChart(dataset, chartTitle);
-        // we put the chart into a panel
+        // put the chart into a panel
         ChartPanel chartPanel = new ChartPanel(chart);
         // default size
-        chartPanel.setPreferredSize(new java.awt.Dimension(500, 270));
+        chartPanel.setPreferredSize(new java.awt.Dimension(1000, 600));
         // add it to our application
         setContentPane(chartPanel);
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-
+        setVisible(true);
     }
 
     /**
@@ -34,9 +39,10 @@ public class ReportMontlhyExpenses extends JFrame {
      */
     private  PieDataset createDataset() {
         DefaultPieDataset result = new DefaultPieDataset();
-        result.setValue("Linux", 29);
-        result.setValue("Mac", 20);
-        result.setValue("Windows", 51);
+        result.setValue("À VISTA", 1);
+        result.setValue("À PRAZO", 2);
+        result.setValue("CRÉDITO", 0);
+        result.setValue("DÉBITO", 0);
         return result;
 
     }
@@ -45,7 +51,6 @@ public class ReportMontlhyExpenses extends JFrame {
      * Creates a chart
      */
     private JFreeChart createChart(PieDataset dataset, String title) {
-
         JFreeChart chart = ChartFactory.createPieChart3D(
             title,                  // chart title
             dataset,                // data
@@ -60,13 +65,12 @@ public class ReportMontlhyExpenses extends JFrame {
         plot.setForegroundAlpha(0.5f);
         
         final ChartPanel chartPanel = new ChartPanel(chart);
-        chartPanel.setPreferredSize(new java.awt.Dimension(500, 270));
+        chartPanel.setMinimumSize(new java.awt.Dimension(800, 600));
         setContentPane(chartPanel);
 
         final Rotator rotator = new Rotator(plot);
         rotator.start();
         
         return chart;
-
     }
 }

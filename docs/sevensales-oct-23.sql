@@ -1,4 +1,4 @@
--- --------------------------------------------------------
+﻿-- --------------------------------------------------------
 -- Servidor:                     127.0.0.1
 -- Versão do servidor:           10.1.35-MariaDB - mariadb.org binary distribution
 -- OS do Servidor:               Win32
@@ -31,26 +31,6 @@ CREATE TABLE IF NOT EXISTS `client` (
 -- Copiando dados para a tabela sevensales.client: ~0 rows (aproximadamente)
 /*!40000 ALTER TABLE `client` DISABLE KEYS */;
 /*!40000 ALTER TABLE `client` ENABLE KEYS */;
-
--- Copiando estrutura para tabela sevensales.itemssale
-CREATE TABLE IF NOT EXISTS `itemssale` (
-  `Product_idProduct` int(11) NOT NULL,
-  `Sale_idSale` int(11) NOT NULL,
-  `Sale_Employee_idEmployee` int(11) NOT NULL,
-  `Sale_Client_idClient` int(11) NOT NULL,
-  PRIMARY KEY (`Product_idProduct`,`Sale_idSale`,`Sale_Employee_idEmployee`,`Sale_Client_idClient`),
-  KEY `fk_Product_has_Sale_Sale1_idx` (`Sale_idSale`,`Sale_Employee_idEmployee`,`Sale_Client_idClient`),
-  KEY `fk_Product_has_Sale_Product1_idx` (`Product_idProduct`),
-  CONSTRAINT `fk_Product_has_Sale_Product1` FOREIGN KEY (`Product_idProduct`) REFERENCES `product` (`idProduct`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  CONSTRAINT `fk_Product_has_Sale_Sale1` FOREIGN KEY (`Sale_idSale`, `Sale_Employee_idEmployee`, `Sale_Client_idClient`) REFERENCES `sale` (`idSale`, `Employee_idEmployee`, `Client_idClient`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
--- Copiando dados para a tabela sevensales.itemssale: ~0 rows (aproximadamente)
-/*!40000 ALTER TABLE `itemssale` DISABLE KEYS */;
-/*!40000 ALTER TABLE `itemssale` ENABLE KEYS */;
-
--- Copiando estrutura para tabela sevensales.monthlyfixedexpense
-CREATE TABLE IF NOT EXISTS `monthlyfixedexpense` (
   `dateFixedExpense` date NOT NULL,
   `useMaterial` float DEFAULT NULL,
   `equipament` float DEFAULT NULL,

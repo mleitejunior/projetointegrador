@@ -5,10 +5,12 @@ public class Product {
     private String name;
     private Double cost;
     private Double percentProfit;
-    private Double productExpense;
     private Double priceSale;
     private Integer quantity;
     private Integer idProvider;
+    private Integer idBrand;
+    private String companyName;
+    private String brandName;
 
     public Integer getId() {
         return id;
@@ -42,14 +44,6 @@ public class Product {
         this.percentProfit = percentProfit;
     }
 
-    public Double getProductExpense() {
-        return productExpense;
-    }
-
-    public void setProductExpense(Double productExpense) {
-        this.productExpense = productExpense;
-    }
-
     public Double getPriceSale() {
         return priceSale;
     }
@@ -73,4 +67,30 @@ public class Product {
     public void setIdProvider(Integer idProvider) {
         this.idProvider = idProvider;
     }
+
+    public Integer getIdBrand() {
+        return idBrand;
+    }
+
+    public void setIdBrand(Integer idBrand) {
+        this.idBrand = idBrand;
+    }
+
+    public String getCompanyName() {
+        return companyName;
+    }
+
+    public void setCompanyName(String companyName) {
+        this.companyName = companyName;
+    }
+
+    public String getBrandName() {
+        return brandName;
+    }
+
+    public void setBrandName(String brandName) {
+        this.brandName = brandName;
+    }
+
+    
 }

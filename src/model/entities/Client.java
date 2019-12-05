@@ -7,4 +7,5 @@ public class Client {
     private String fu;
     private String email;
     private String contact;    
+    private String cpf;
 }

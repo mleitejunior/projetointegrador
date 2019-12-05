@@ -1,11 +1,11 @@
-package visual;
+package resources;
 
 import javax.swing.Timer;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import org.jfree.chart.plot.PiePlot3D;
 
-class Rotator extends Timer implements ActionListener {
+public class Rotator extends Timer implements ActionListener {
 
     /** The plot. */
     private PiePlot3D plot;
@@ -18,7 +18,7 @@ class Rotator extends Timer implements ActionListener {
      *
      * @param plot  the plot.
      */
-    Rotator(final PiePlot3D plot) {
+    public Rotator(final PiePlot3D plot) {
         super(100, null);
         this.plot = plot;
         addActionListener(this);

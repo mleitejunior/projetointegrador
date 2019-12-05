@@ -5,19 +5,26 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JOptionPane;
-import model.entities.Product;
+import model.entities.*;
+import model.structure.MonthlyFixedExpense;
 
-public class Connect {
+public class DAOConnection {
     private static final String sqlAdress ="jdbc:mysql://localhost:3306/sevensales";
     private static final String driver ="com.mysql.jdbc.Driver";
     private static final String user ="root";
     private static final String password ="";
+    private static int access;
+
+    public static int getAccess() {
+        return access;
+    }
     private static Connection con = null;
     
-    public Connect (){}
+    public DAOConnection (){}
     
     public static Connection getConexao(){
         if(con==null){
@@ -30,7 +37,6 @@ public class Connect {
                 System.out.println("Erro na Conexão:"+ex.getMessage());
             }
         }
-        System.out.println("Encontrou o driver");
         return con;
     }
     
@@ -54,6 +60,7 @@ public class Connect {
             ResultSet resultSet = preparedStatement.executeQuery();
   
             if (resultSet.next()) {
+                access = resultSet.getInt("idAccess");
                 preparedStatement.close();
                 resultSet.close();
                 return true;
@@ -80,7 +87,6 @@ public class Connect {
                 obj.setName(rs.getString("name"));
                 obj.setCost(rs.getDouble("cost"));
                 obj.setPercentProfit(rs.getDouble("percentProfit"));
-                obj.setProductExpense(rs.getDouble("productExpense"));
                 obj.setPriceSale(rs.getDouble("priceSale"));
                 obj.setQuantity(rs.getInt("quantity"));
                 obj.setIdProvider(rs.getInt("provider_idProvider"));
@@ -91,6 +97,69 @@ public class Connect {
         }
         return lista;
     }
+    
+    public List<Product> getProductDisplay(){
+        String sql = "SELECT p.idProduct, p.name, b.name AS brandName, p.priceSale, p.quantity, p.cost, pv.companyName\n" +
+                     "FROM product AS p, provider AS pv, brand AS b\n" +
+                     "WHERE b.idBrand = p.brand_idbrand AND pv.idProvider = p.provider_idprovider;";
+        List<Product> lista = new ArrayList<>();
+        try{
+            PreparedStatement pst = getPreparedStatement(sql);
+            ResultSet rs = pst.executeQuery();
+            while(rs.next()){
+                Product obj = new Product();
+                obj.setId(rs.getInt("idProduct"));
+                obj.setName(rs.getString("name"));
+                obj.setBrandName(rs.getString("brandName"));
+                obj.setPriceSale(rs.getDouble("priceSale"));
+                obj.setQuantity(rs.getInt("quantity"));
+                obj.setCost(rs.getDouble("cost"));
+                obj.setCompanyName(rs.getString("companyName"));
+                lista.add(obj);
+            }
+        }catch (SQLException e){
+                JOptionPane.showMessageDialog(null, "Erro de SQL no getLista de DAOProduct"+e.getMessage());
+        }
+        return lista;
+    }
+    
+    public List<MonthlyFixedExpense> getMonthlyFixedExpense() {
+        String sql = "select * from monthlyfixedexpense";
+        List<MonthlyFixedExpense> lista = new ArrayList<>();
+        try{
+            PreparedStatement pst = getPreparedStatement(sql);
+            ResultSet rs = pst.executeQuery();
+            while(rs.next()){
+                MonthlyFixedExpense obj = new MonthlyFixedExpense();
+                //CONVERTENDO DATE EM CALENDAR:
+                SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");;
+                java.sql.Date dt = rs.getDate("dateFixedExpense");
+//                System.out.println(dt);
+//                Calendar c = Calendar.getInstance();
+//                System.out.println(c);
+//                c.setTime(dt);
+//                System.out.println(c);
+                obj.setDate(dt);
+                obj.setEmployees(rs.getDouble("employee"));
+                obj.setEquipment(rs.getDouble("equipment"));
+                obj.setLoan(rs.getDouble("loan"));
+                obj.setMaintenance(rs.getDouble("maintenance"));
+                obj.setMonthlyTax(rs.getDouble("monthlyTax"));
+                obj.setOthers(rs.getDouble("others"));
+                obj.setRent(rs.getDouble("rent"));
+                obj.setUseMaterial(rs.getDouble("useMaterial"));
+                lista.add(obj);
+            }
+        }catch (SQLException e){
+                JOptionPane.showMessageDialog(null, "Erro de SQL no getLista de DAOgetMonthlyFixedExpense"+e.getMessage());
+        }
+        return lista;
+    }
+    
+    public List<Sale> getSales() {
+        return null;
+    }
+
 //    // CLIENTE
 //    public List<Cliente> getListaCliente(){
 //        String sql = "select * from cliente";
