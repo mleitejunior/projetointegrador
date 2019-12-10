@@ -2,19 +2,17 @@ package visual;
 
 import dao.DAOConnection;
 import java.awt.Color;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
 import java.sql.Connection;
 import javax.swing.JOptionPane;
+import resources.WindowFrame;
 
-public class Login extends javax.swing.JFrame {
+public class Login extends WindowFrame {
     
-    //VARIAVEIS PARA ARRASTAR JANELA VISUAL
-    private int pX,pY;
 
     public Login() {
         setUndecorated(true);
         initComponents();
+        setLabelBackground(labelBackground);
         setSize(1280,800);
         setBackground(new Color(0,0,0,0));
         setBackgroundMovable();
@@ -35,6 +33,7 @@ public class Login extends javax.swing.JFrame {
         btnEnviar = new javax.swing.JButton();
         txtLogin = new javax.swing.JTextField();
         txtPassword = new javax.swing.JPasswordField();
+        btnFechar2 = new javax.swing.JButton();
         labelBackground = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -64,13 +63,42 @@ public class Login extends javax.swing.JFrame {
 
         txtLogin.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         txtLogin.setForeground(new java.awt.Color(102, 102, 102));
+        txtLogin.setText("mleitejunior");
         getContentPane().add(txtLogin);
         txtLogin.setBounds(490, 390, 340, 30);
 
         txtPassword.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         txtPassword.setForeground(new java.awt.Color(102, 102, 102));
+        txtPassword.setText("1234");
+        txtPassword.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtPasswordActionPerformed(evt);
+            }
+        });
         getContentPane().add(txtPassword);
         txtPassword.setBounds(490, 500, 340, 30);
+
+        btnFechar2.setBackground(new java.awt.Color(255, 0, 0));
+        btnFechar2.setFont(new java.awt.Font("Arial Black", 0, 8)); // NOI18N
+        btnFechar2.setForeground(new java.awt.Color(255, 255, 255));
+        btnFechar2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/btnfechar.png"))); // NOI18N
+        btnFechar2.setContentAreaFilled(false);
+        btnFechar2.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        btnFechar2.setMargin(new java.awt.Insets(1, 1, 1, 1));
+        btnFechar2.setMaximumSize(new java.awt.Dimension(30, 30));
+        btnFechar2.setMinimumSize(new java.awt.Dimension(30, 30));
+        btnFechar2.setPreferredSize(new java.awt.Dimension(30, 30));
+        btnFechar2.setPressedIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/btnfecharover.png"))); // NOI18N
+        btnFechar2.setRolloverIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/btnfecharover.png"))); // NOI18N
+        btnFechar2.setRolloverSelectedIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/btnfecharover.png"))); // NOI18N
+        btnFechar2.setSelectedIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/btnfechar.png"))); // NOI18N
+        btnFechar2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnFechar2ActionPerformed(evt);
+            }
+        });
+        getContentPane().add(btnFechar2);
+        btnFechar2.setBounds(1250, 0, 30, 30);
 
         labelBackground.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/loginbackground.png"))); // NOI18N
         getContentPane().add(labelBackground);
@@ -102,6 +130,14 @@ public class Login extends javax.swing.JFrame {
         
         
     }//GEN-LAST:event_btnEnviarActionPerformed
+
+    private void btnFechar2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFechar2ActionPerformed
+        dispose();
+    }//GEN-LAST:event_btnFechar2ActionPerformed
+
+    private void txtPasswordActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtPasswordActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtPasswordActionPerformed
 
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
@@ -136,34 +172,9 @@ public class Login extends javax.swing.JFrame {
         });
     }
 
-    public void setBackgroundMovable(){
-        labelBackground.addMouseListener(new MouseAdapter(){
-        @Override
-        public void mousePressed(MouseEvent me)
-            {
-            // Get x,y and store them
-            pX=me.getX();
-            pY=me.getY();
-            }
-        });
-        
-        // Add MouseMotionListener for detecting drag
-        labelBackground.addMouseMotionListener(new MouseAdapter(){
-            @Override
-            public void mouseDragged(MouseEvent me)
-            {
-                // Set the location
-                // get the current location x-co-ordinate and then get
-                // the current drag x co-ordinate, add them and subtract most recent
-                // mouse pressed x co-ordinate
-                // do same for y co-ordinate
-                setLocation(getLocation().x+me.getX()-pX,getLocation().y+me.getY()-pY);
-            }
-        });
-    }
-    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnEnviar;
+    private javax.swing.JButton btnFechar2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel labelBackground;

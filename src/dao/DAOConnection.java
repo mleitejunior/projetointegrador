@@ -98,7 +98,7 @@ public class DAOConnection {
         return lista;
     }
     
-    public List<Product> getProductDisplay(){
+    public List<Product> getProductsDisplay(){
         String sql = "SELECT p.idProduct, p.name, b.name AS brandName, p.priceSale, p.quantity, p.cost, pv.companyName\n" +
                      "FROM product AS p, provider AS pv, brand AS b\n" +
                      "WHERE b.idBrand = p.brand_idbrand AND pv.idProvider = p.provider_idprovider;";
@@ -119,6 +119,70 @@ public class DAOConnection {
             }
         }catch (SQLException e){
                 JOptionPane.showMessageDialog(null, "Erro de SQL no getLista de DAOProduct"+e.getMessage());
+        }
+        return lista;
+    }
+    
+    public List<Client> getClientNames() {
+        
+        
+        String sql = "SELECT c.name FROM client AS c;";
+        List<Client> lista = new ArrayList<>();
+        try{
+            PreparedStatement pst = getPreparedStatement(sql);
+            ResultSet rs = pst.executeQuery();
+            while(rs.next()){
+                Client obj = new Client();
+                obj.setName(rs.getString("name"));
+                lista.add(obj);
+            }
+        }catch (SQLException e){
+                JOptionPane.showMessageDialog(null, "Erro de SQL no getLista de DAOGetSalesDisplay"+e.getMessage());
+        }
+        return lista;
+    }
+    
+        public List<Product> getProductForSale() {
+        String sql = "SELECT p.name, p.idProduct, p.priceSale, p.quantity FROM product AS p;";
+        List<Product> lista = new ArrayList<>();
+        try{
+            PreparedStatement pst = getPreparedStatement(sql);
+            ResultSet rs = pst.executeQuery();
+            while(rs.next()){
+                Product obj = new Product();
+                obj.setName(rs.getString("name"));
+                obj.setId(rs.getInt("idProduct"));
+                obj.setPriceSale(rs.getDouble("priceSale"));
+                obj.setQuantity(rs.getInt("quantity"));
+                lista.add(obj);
+            }
+        }catch (SQLException e){
+                JOptionPane.showMessageDialog(null, "Erro de SQL no getLista de DAOGetSalesDisplay"+e.getMessage());
+        }
+        return lista;
+    }
+    
+    public List<Sale> getSalesDisplay(){
+        String sql = "SELECT s.idSale, s.date, c.name AS clientName, u.name AS userName\n" +
+                     "FROM user AS u, client AS c, sale AS s \n" +
+                     "WHERE s.User_idUser = u.idUser AND s.Client_idClient = c.idClient;";
+        List<Sale> lista = new ArrayList<>();
+        try{
+            PreparedStatement pst = getPreparedStatement(sql);
+            ResultSet rs = pst.executeQuery();
+            while(rs.next()){
+                Sale obj = new Sale();
+                obj.setIdSale(rs.getInt("idSale"));
+                //CONVERTENDO DATE EM CALENDAR:
+                SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
+                java.sql.Date dt = rs.getDate("date");
+                obj.setDate(dt);
+                obj.setUserName(rs.getString("userName"));
+                obj.setClientName(rs.getString("clientName"));
+                lista.add(obj);
+            }
+        }catch (SQLException e){
+                JOptionPane.showMessageDialog(null, "Erro de SQL no getLista de DAOGetSalesDisplay"+e.getMessage());
         }
         return lista;
     }

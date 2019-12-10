@@ -2,25 +2,21 @@ package visual;
 
 import dao.DAOConnection;
 import java.awt.Color;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
 import java.sql.Connection;
 import java.util.ArrayList;
 import java.util.List;
 import model.entities.*;
 import model.structure.*;
+import resources.WindowFrame;
 import visual.reports.*;
 
-public class MainFrame extends javax.swing.JFrame {
+public class MainFrame extends WindowFrame {
     
     DAOConnection connect = new DAOConnection();
     Connection database;
-    //VARIAVEIS PARA ARRASTAR JANELA VISUAL
-    private int pX,pY;
     
     private int access;
-
-    
+        
     public void setDatabase(Connection database) {
         this.database = database;
         atualizaTabelas();
@@ -36,9 +32,9 @@ public class MainFrame extends javax.swing.JFrame {
     public MainFrame() {    
         setUndecorated(true);
         initComponents();
+        setLabelBackground(labelBackground);
         setSize(1280,800);
         setBackground(new Color(0,0,0,0));
-        setSize(1280, 800);
         setBackgroundMovable();
     }
 
@@ -96,6 +92,7 @@ public class MainFrame extends javax.swing.JFrame {
         btnReportClientRegionSales = new javax.swing.JButton();
         btnReportTypePayments = new javax.swing.JButton();
         btnReportNew = new javax.swing.JButton();
+        btnFechar2 = new javax.swing.JButton();
         labelBackground = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -137,6 +134,11 @@ public class MainFrame extends javax.swing.JFrame {
         scrollTableProducts.setViewportView(tableProducts);
 
         btnAddProduct.setText("ADICIONAR PRODUTO");
+        btnAddProduct.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAddProductActionPerformed(evt);
+            }
+        });
 
         btnEditProduct.setText("EDITAR PRODUTO");
 
@@ -243,22 +245,28 @@ public class MainFrame extends javax.swing.JFrame {
         panelSales.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
 
         jTableBinding = org.jdesktop.swingbinding.SwingBindings.createJTableBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, listSales, tableSales);
-        columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ObjectProperty.create());
+        columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${idSale}"));
         columnBinding.setColumnName("Código");
         columnBinding.setEditable(false);
-        columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ObjectProperty.create());
+        columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${date}"));
         columnBinding.setColumnName("Data da Venda");
         columnBinding.setEditable(false);
-        columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ObjectProperty.create());
+        columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${clientName}"));
         columnBinding.setColumnName("Nome do Cliente");
-        columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ObjectProperty.create());
+        columnBinding.setEditable(false);
+        columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${userName}"));
         columnBinding.setColumnName("Nome do Funcionário");
         columnBinding.setEditable(false);
         bindingGroup.addBinding(jTableBinding);
         jTableBinding.bind();
         scrollTableSales.setViewportView(tableSales);
 
-        btnAddSale.setText("ADICIONAR PRODUTO");
+        btnAddSale.setText("ADICIONAR VENDA");
+        btnAddSale.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAddSaleActionPerformed(evt);
+            }
+        });
 
         btnEditSale.setText("EDITAR PRODUTO");
 
@@ -561,6 +569,28 @@ public class MainFrame extends javax.swing.JFrame {
         getContentPane().add(btnReportNew);
         btnReportNew.setBounds(870, 140, 350, 23);
 
+        btnFechar2.setBackground(new java.awt.Color(255, 0, 0));
+        btnFechar2.setFont(new java.awt.Font("Arial Black", 0, 8)); // NOI18N
+        btnFechar2.setForeground(new java.awt.Color(255, 255, 255));
+        btnFechar2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/btnfechar.png"))); // NOI18N
+        btnFechar2.setContentAreaFilled(false);
+        btnFechar2.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        btnFechar2.setMargin(new java.awt.Insets(1, 1, 1, 1));
+        btnFechar2.setMaximumSize(new java.awt.Dimension(30, 30));
+        btnFechar2.setMinimumSize(new java.awt.Dimension(30, 30));
+        btnFechar2.setPreferredSize(new java.awt.Dimension(30, 30));
+        btnFechar2.setPressedIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/btnfecharover.png"))); // NOI18N
+        btnFechar2.setRolloverIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/btnfecharover.png"))); // NOI18N
+        btnFechar2.setRolloverSelectedIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/btnfecharover.png"))); // NOI18N
+        btnFechar2.setSelectedIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/btnfechar.png"))); // NOI18N
+        btnFechar2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnFechar2ActionPerformed(evt);
+            }
+        });
+        getContentPane().add(btnFechar2);
+        btnFechar2.setBounds(1250, 0, 30, 30);
+
         labelBackground.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/mainbackground.png"))); // NOI18N
         getContentPane().add(labelBackground);
         labelBackground.setBounds(0, 0, 1280, 800);
@@ -612,6 +642,22 @@ public class MainFrame extends javax.swing.JFrame {
     private void btnAddClientActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddClientActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_btnAddClientActionPerformed
+
+    private void btnFechar2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFechar2ActionPerformed
+        dispose();
+    }//GEN-LAST:event_btnFechar2ActionPerformed
+
+    private void btnAddProductActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddProductActionPerformed
+        AddProducts addProducts = new AddProducts();
+        addProducts.setDatabase(database);
+        addProducts.setVisible(true);
+    }//GEN-LAST:event_btnAddProductActionPerformed
+
+    private void btnAddSaleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddSaleActionPerformed
+        NewSale newSale = new NewSale();
+        newSale.setDatabase(database);
+        newSale.setVisible(true);
+    }//GEN-LAST:event_btnAddSaleActionPerformed
 
     /**
      * @param args the command line arguments
@@ -668,6 +714,7 @@ public class MainFrame extends javax.swing.JFrame {
     private javax.swing.JButton btnEditProvider;
     private javax.swing.JButton btnEditSale;
     private javax.swing.JButton btnEditUser;
+    private javax.swing.JButton btnFechar2;
     private javax.swing.JButton btnReportClientRegionSales;
     private javax.swing.JButton btnReportMonthlyExpenses;
     private javax.swing.JButton btnReportNew;
@@ -706,7 +753,7 @@ public class MainFrame extends javax.swing.JFrame {
     public void atualizaTabelas(){
         
         listProducts.clear();
-        listProducts.addAll(connect.getProductDisplay());
+        listProducts.addAll(connect.getProductsDisplay());
         int linha = listProducts.size()-1;
         if(linha>=0){
             tableProducts.setRowSelectionInterval(linha, linha);
@@ -721,6 +768,15 @@ public class MainFrame extends javax.swing.JFrame {
             tableExpenses.setRowSelectionInterval(linha, linha);
             tableExpenses.scrollRectToVisible
             (tableExpenses.getCellRect(linha, linha, true));
+        }
+        
+        listSales.clear();
+        listSales.addAll(connect.getSalesDisplay());
+        linha = listSales.size()-1;
+        if(linha>=0){
+            tableSales.setRowSelectionInterval(linha, linha);
+            tableSales.scrollRectToVisible
+            (tableSales.getCellRect(linha, linha, true));
         }
 //        setCalendarValuesInTable();
 
@@ -747,32 +803,6 @@ public class MainFrame extends javax.swing.JFrame {
         for(int i = 0; i < tableExpenses.getRowCount(); i++) {
             tableExpenses.setValueAt("teste", i, 0);
         }
-    }
-    
-    public void setBackgroundMovable(){
-        labelBackground.addMouseListener(new MouseAdapter(){
-        @Override
-        public void mousePressed(MouseEvent me)
-            {
-            // Get x,y and store them
-            pX=me.getX();
-            pY=me.getY();
-            }
-        });
-        
-        // Add MouseMotionListener for detecting drag
-        labelBackground.addMouseMotionListener(new MouseAdapter(){
-            @Override
-            public void mouseDragged(MouseEvent me)
-            {
-                // Set the location
-                // get the current location x-co-ordinate and then get
-                // the current drag x co-ordinate, add them and subtract most recent
-                // mouse pressed x co-ordinate
-                // do same for y co-ordinate
-                setLocation(getLocation().x+me.getX()-pX,getLocation().y+me.getY()-pY);
-            }
-        });
     }
     
     public void setAccessLevel(){
