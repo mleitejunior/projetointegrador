@@ -2,9 +2,11 @@ package visual;
 
 import dao.DAOConnection;
 import java.awt.Color;
+import java.awt.Font;
 import java.sql.Connection;
 import java.util.ArrayList;
 import java.util.List;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import model.entities.Client;
 import model.entities.Product;
@@ -24,6 +26,7 @@ public class NewSale extends WindowFrame {
     public NewSale() {
         setUndecorated(true);
         initComponents();
+        tableProductsToSell.getTableHeader().setFont(new Font("Arial", Font.BOLD, 14));
         setLabelBackground(labelBackground);
         setSize(840,530);
         setBackground(new Color(0,0,0,0));
@@ -65,6 +68,7 @@ public class NewSale extends WindowFrame {
         txtPeriod = new javax.swing.JTextField();
         jLabel10 = new javax.swing.JLabel();
         labelParcel = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
         labelBackground = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -75,13 +79,15 @@ public class NewSale extends WindowFrame {
         });
         getContentPane().setLayout(null);
 
-        labelUser.setText("NOMEDOVENDEDOR");
+        labelUser.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+        labelUser.setText("MARCELO LEITE JUNIOR");
         getContentPane().add(labelUser);
-        labelUser.setBounds(130, 130, 98, 14);
+        labelUser.setBounds(180, 130, 180, 14);
 
+        jLabel3.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         jLabel3.setText("Cliente:");
         getContentPane().add(jLabel3);
-        jLabel3.setBounds(50, 170, 37, 14);
+        jLabel3.setBounds(50, 170, 80, 17);
 
         comboClients.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
         comboClients.addFocusListener(new java.awt.event.FocusAdapter() {
@@ -90,8 +96,11 @@ public class NewSale extends WindowFrame {
             }
         });
         getContentPane().add(comboClients);
-        comboClients.setBounds(160, 170, 190, 20);
+        comboClients.setBounds(120, 170, 220, 20);
 
+        btnNewClient.setBackground(new java.awt.Color(0, 157, 229));
+        btnNewClient.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+        btnNewClient.setForeground(new java.awt.Color(255, 255, 255));
         btnNewClient.setText("Cancelar Venda");
         btnNewClient.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -101,6 +110,7 @@ public class NewSale extends WindowFrame {
         getContentPane().add(btnNewClient);
         btnNewClient.setBounds(400, 470, 180, 40);
 
+        tableProductsToSell.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         tableProductsToSell.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
@@ -125,25 +135,30 @@ public class NewSale extends WindowFrame {
         getContentPane().add(jScrollPane1);
         jScrollPane1.setBounds(20, 250, 580, 200);
 
+        jLabel4.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         jLabel4.setText("TOTAL À PAGAR:");
         getContentPane().add(jLabel4);
-        jLabel4.setBounds(670, 400, 83, 14);
+        jLabel4.setBounds(650, 390, 113, 17);
 
+        labelTotal.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         labelTotal.setText("R$x.xxx.xxx,xx");
         getContentPane().add(labelTotal);
-        labelTotal.setBounds(640, 410, 140, 30);
+        labelTotal.setBounds(630, 410, 140, 30);
 
+        jLabel5.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         jLabel5.setText("SUBTOTAL À PAGAR");
         getContentPane().add(jLabel5);
-        jLabel5.setBounds(650, 120, 98, 14);
+        jLabel5.setBounds(640, 120, 138, 17);
 
+        labelSubTotal.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         labelSubTotal.setText("R$x.xxx.xxx,xx");
         getContentPane().add(labelSubTotal);
-        labelSubTotal.setBounds(640, 150, 160, 20);
+        labelSubTotal.setBounds(630, 150, 160, 20);
 
+        jLabel6.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         jLabel6.setText("Parcelas");
         getContentPane().add(jLabel6);
-        jLabel6.setBounds(690, 320, 40, 14);
+        jLabel6.setBounds(680, 320, 70, 17);
 
         txtPercentTaxDiscount.setText("0");
         txtPercentTaxDiscount.addActionListener(new java.awt.event.ActionListener() {
@@ -154,10 +169,14 @@ public class NewSale extends WindowFrame {
         getContentPane().add(txtPercentTaxDiscount);
         txtPercentTaxDiscount.setBounds(700, 270, 40, 30);
 
+        jLabel7.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         jLabel7.setText("%");
         getContentPane().add(jLabel7);
-        jLabel7.setBounds(680, 280, 11, 14);
+        jLabel7.setBounds(680, 280, 12, 17);
 
+        jButton1.setBackground(new java.awt.Color(0, 157, 229));
+        jButton1.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+        jButton1.setForeground(new java.awt.Color(255, 255, 255));
         jButton1.setText("Adicionar Produto");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -167,16 +186,19 @@ public class NewSale extends WindowFrame {
         getContentPane().add(jButton1);
         jButton1.setBounds(25, 208, 190, 40);
 
+        jButton2.setBackground(new java.awt.Color(0, 157, 229));
+        jButton2.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+        jButton2.setForeground(new java.awt.Color(255, 255, 255));
         jButton2.setText("Remover Produto");
         getContentPane().add(jButton2);
         jButton2.setBounds(230, 208, 180, 40);
 
+        jLabel1.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         jLabel1.setText("Tipo de Venda:");
         getContentPane().add(jLabel1);
-        jLabel1.setBounds(670, 180, 80, 14);
+        jLabel1.setBounds(660, 180, 120, 17);
 
-        comboSaleType.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "prazo", "vista", "crédito", "débito" }));
-        comboSaleType.setSelectedIndex(1);
+        comboSaleType.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "À PRAZO", "A VISTA", "CRÉDITO", "DÉBITO" }));
         comboSaleType.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 comboSaleTypeActionPerformed(evt);
@@ -185,21 +207,34 @@ public class NewSale extends WindowFrame {
         getContentPane().add(comboSaleType);
         comboSaleType.setBounds(650, 210, 120, 20);
 
+        btnNewClient1.setBackground(new java.awt.Color(0, 157, 229));
+        btnNewClient1.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+        btnNewClient1.setForeground(new java.awt.Color(255, 255, 255));
         btnNewClient1.setText("NOVO CLIENTE");
         getContentPane().add(btnNewClient1);
-        btnNewClient1.setBounds(370, 170, 120, 23);
+        btnNewClient1.setBounds(370, 170, 170, 25);
 
+        btnNewClient2.setBackground(new java.awt.Color(0, 157, 229));
+        btnNewClient2.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+        btnNewClient2.setForeground(new java.awt.Color(255, 255, 255));
         btnNewClient2.setText("Concluir Venda");
+        btnNewClient2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnNewClient2ActionPerformed(evt);
+            }
+        });
         getContentPane().add(btnNewClient2);
         btnNewClient2.setBounds(210, 470, 180, 40);
 
+        jLabel8.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         jLabel8.setText("Vendedor:");
         getContentPane().add(jLabel8);
-        jLabel8.setBounds(50, 130, 50, 14);
+        jLabel8.setBounds(50, 130, 90, 17);
 
+        jLabel9.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         jLabel9.setText("TAXA");
         getContentPane().add(jLabel9);
-        jLabel9.setBounds(670, 240, 90, 14);
+        jLabel9.setBounds(690, 240, 90, 17);
 
         txtPeriod.setText("1");
         txtPeriod.addActionListener(new java.awt.event.ActionListener() {
@@ -210,13 +245,21 @@ public class NewSale extends WindowFrame {
         getContentPane().add(txtPeriod);
         txtPeriod.setBounds(690, 350, 40, 30);
 
+        jLabel10.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         jLabel10.setText("VALOR DA PARCELA:");
         getContentPane().add(jLabel10);
-        jLabel10.setBounds(660, 440, 110, 14);
+        jLabel10.setBounds(650, 440, 150, 17);
 
+        labelParcel.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         labelParcel.setText("R$x.xxx.xxx,xx");
         getContentPane().add(labelParcel);
-        labelParcel.setBounds(640, 460, 140, 30);
+        labelParcel.setBounds(630, 470, 160, 30);
+
+        jLabel2.setFont(new java.awt.Font("Arial", 1, 24)); // NOI18N
+        jLabel2.setForeground(new java.awt.Color(0, 157, 229));
+        jLabel2.setText("NOVA VENDA");
+        getContentPane().add(jLabel2);
+        jLabel2.setBounds(420, 40, 330, 30);
 
         labelBackground.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/backgroundnewsales.png"))); // NOI18N
         labelBackground.addFocusListener(new java.awt.event.FocusAdapter() {
@@ -267,6 +310,11 @@ public class NewSale extends WindowFrame {
     private void txtPercentTaxDiscountActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtPercentTaxDiscountActionPerformed
         atualizaTotal();
     }//GEN-LAST:event_txtPercentTaxDiscountActionPerformed
+
+    private void btnNewClient2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNewClient2ActionPerformed
+        JOptionPane.showMessageDialog(null, "VENDA CADASTRADA COM SUCESSO!");
+        dispose();
+    }//GEN-LAST:event_btnNewClient2ActionPerformed
 
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
@@ -331,7 +379,7 @@ public class NewSale extends WindowFrame {
            subtotal += p.getPriceSale() * p.getQuantity();
           }
         
-        labelSubTotal.setText("R$" + subtotal);
+        labelSubTotal.setText("R$" + String.format("%.2f", subtotal));
     }
     
     public void atualizaTotal() {
@@ -346,26 +394,26 @@ public class NewSale extends WindowFrame {
         switch(comboSaleType.getSelectedIndex()) {
             case 0: //prazo
                 calculatedTotal = (subtotal * Math.pow((1+tax),period));
-                labelTotal.setText("R$" + calculatedTotal);
+                labelTotal.setText("R$" + String.format("%.2f", calculatedTotal));
                 break;
             case 1: //vista
                 calculatedTotal = (subtotal - (subtotal * tax * period));
-                labelTotal.setText("R$" + calculatedTotal);
+                labelTotal.setText("R$" + String.format("%.2f", calculatedTotal));
                 break;
             case 2: //credito
                 calculatedTotal = (subtotal * Math.pow((1+tax),period));
-                labelTotal.setText("R$" + calculatedTotal);
+                labelTotal.setText("R$" + String.format("%.2f", calculatedTotal));
                 break;
             case 3: //debito
                 calculatedTotal = (subtotal - (subtotal * tax * period));
-                labelTotal.setText("R$" + calculatedTotal);
+                labelTotal.setText("R$" + String.format("%.2f", calculatedTotal));
                 break;
             default:
                 break;
         }
         
         parcel = calculatedTotal / period;
-        labelParcel.setText("R$" + parcel);
+        labelParcel.setText("R$" + String.format("%.2f", parcel));
     }
     
 
@@ -380,6 +428,7 @@ public class NewSale extends WindowFrame {
     private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;

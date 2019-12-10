@@ -3,16 +3,10 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/Marcelo%20Leite%20Junior/Documents/NetBeansProjects/projetointegrador/src/visual/AddProducts.java</file>
-            <file>file:/C:/Users/Marcelo%20Leite%20Junior/Documents/NetBeansProjects/projetointegrador/src/dao/DAOConnection.java</file>
-            <file>file:/C:/Users/Marcelo%20Leite%20Junior/Documents/NetBeansProjects/projetointegrador/src/model/entities/User.java</file>
-            <file>file:/C:/Users/Marcelo%20Leite%20Junior/Documents/NetBeansProjects/projetointegrador/src/visual/Login.java</file>
-            <file>file:/C:/Users/Marcelo%20Leite%20Junior/Documents/NetBeansProjects/projetointegrador/src/visual/ExistentProduct.java</file>
-            <file>file:/C:/Users/Marcelo%20Leite%20Junior/Documents/NetBeansProjects/projetointegrador/src/visual/MainFrame.java</file>
-            <file>file:/C:/Users/Marcelo%20Leite%20Junior/Documents/NetBeansProjects/projetointegrador/src/model/entities/Provider.java</file>
-            <file>file:/C:/Users/Marcelo%20Leite%20Junior/Documents/NetBeansProjects/projetointegrador/src/visual/NewProduct.java</file>
-            <file>file:/C:/Users/Marcelo%20Leite%20Junior/Documents/NetBeansProjects/projetointegrador/src/model/entities/Client.java</file>
-            <file>file:/C:/Users/Marcelo%20Leite%20Junior/Documents/NetBeansProjects/projetointegrador/src/visual/NewSale.java</file>
+            <file>file:/C:/Users/aluno/Documents/NetBeansProjects/projetointegrador/src/visual/AddProducts.java</file>
+            <file>file:/C:/Users/aluno/Documents/NetBeansProjects/projetointegrador/src/visual/NewSale.java</file>
+            <file>file:/C:/Users/aluno/Documents/NetBeansProjects/projetointegrador/src/visual/NewProduct.java</file>
+            <file>file:/C:/Users/aluno/Documents/NetBeansProjects/projetointegrador/src/visual/MainFrame.java</file>
         </group>
     </open-files>
 </project-private>
