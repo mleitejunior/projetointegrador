@@ -29,6 +29,7 @@ public class NewProduct extends WindowFrame {
     private void initComponents() {
 
         btnCancel = new javax.swing.JButton();
+        jLabel1 = new javax.swing.JLabel();
         labelBackground = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -42,6 +43,12 @@ public class NewProduct extends WindowFrame {
         });
         getContentPane().add(btnCancel);
         btnCancel.setBounds(640, 470, 160, 50);
+
+        jLabel1.setFont(new java.awt.Font("Arial", 1, 24)); // NOI18N
+        jLabel1.setForeground(new java.awt.Color(0, 157, 229));
+        jLabel1.setText("NOVO PRODUTO");
+        getContentPane().add(jLabel1);
+        jLabel1.setBounds(420, 40, 330, 30);
 
         labelBackground.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/backgroundnewproduct.png"))); // NOI18N
         getContentPane().add(labelBackground);
@@ -88,6 +95,7 @@ public class NewProduct extends WindowFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCancel;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel labelBackground;
     // End of variables declaration//GEN-END:variables
 }

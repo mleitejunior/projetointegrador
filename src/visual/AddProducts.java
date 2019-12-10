@@ -1,7 +1,6 @@
 package visual;
 
 import dao.DAOConnection;
-import java.awt.Color;
 import java.sql.Connection;
 import java.util.List;
 import model.entities.Product;
@@ -22,30 +21,28 @@ public class AddProducts extends WindowFrame {
         initComponents();
         setLabelBackground(labelBackground);
         setBackgroundMovable();
-        setSize(600,400);
+        setSize(840,525);
     }
 
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        labelTitle = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
         jButton3 = new javax.swing.JButton();
         jButton4 = new javax.swing.JButton();
         jScrollPane2 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
+        jLabel1 = new javax.swing.JLabel();
         labelBackground = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(null);
 
-        labelTitle.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
-        labelTitle.setText("TITLE LABEL");
-        getContentPane().add(labelTitle);
-        labelTitle.setBounds(227, 11, 135, 29);
-
+        jButton1.setBackground(new java.awt.Color(0, 157, 229));
+        jButton1.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+        jButton1.setForeground(new java.awt.Color(255, 255, 255));
         jButton1.setText("NOVO PRODUTO");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -53,8 +50,11 @@ public class AddProducts extends WindowFrame {
             }
         });
         getContentPane().add(jButton1);
-        jButton1.setBounds(10, 58, 150, 23);
+        jButton1.setBounds(230, 140, 260, 25);
 
+        jButton2.setBackground(new java.awt.Color(0, 157, 229));
+        jButton2.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+        jButton2.setForeground(new java.awt.Color(255, 255, 255));
         jButton2.setText("PRODUTO EXISTENTE");
         jButton2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -62,8 +62,11 @@ public class AddProducts extends WindowFrame {
             }
         });
         getContentPane().add(jButton2);
-        jButton2.setBounds(320, 60, 260, 23);
+        jButton2.setBounds(540, 140, 260, 25);
 
+        jButton3.setBackground(new java.awt.Color(0, 157, 229));
+        jButton3.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+        jButton3.setForeground(new java.awt.Color(255, 255, 255));
         jButton3.setText("CANCELAR");
         jButton3.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -71,11 +74,14 @@ public class AddProducts extends WindowFrame {
             }
         });
         getContentPane().add(jButton3);
-        jButton3.setBounds(430, 370, 150, 23);
+        jButton3.setBounds(490, 480, 260, 23);
 
+        jButton4.setBackground(new java.awt.Color(0, 157, 229));
+        jButton4.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+        jButton4.setForeground(new java.awt.Color(255, 255, 255));
         jButton4.setText("SALVAR");
         getContentPane().add(jButton4);
-        jButton4.setBounds(10, 366, 150, 23);
+        jButton4.setBounds(80, 480, 260, 23);
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -91,11 +97,17 @@ public class AddProducts extends WindowFrame {
         jScrollPane2.setViewportView(jTable1);
 
         getContentPane().add(jScrollPane2);
-        jScrollPane2.setBounds(10, 87, 580, 273);
+        jScrollPane2.setBounds(10, 170, 820, 300);
 
-        labelBackground.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/sevensalesicon.png"))); // NOI18N
+        jLabel1.setFont(new java.awt.Font("Arial", 1, 24)); // NOI18N
+        jLabel1.setForeground(new java.awt.Color(0, 157, 229));
+        jLabel1.setText("ADICIONAR PRODUTOS");
+        getContentPane().add(jLabel1);
+        jLabel1.setBounds(420, 40, 330, 30);
+
+        labelBackground.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/backgroundnewproduct.png"))); // NOI18N
         getContentPane().add(labelBackground);
-        labelBackground.setBounds(0, 0, 600, 400);
+        labelBackground.setBounds(0, 0, 850, 530);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -155,9 +167,9 @@ public class AddProducts extends WindowFrame {
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTable jTable1;
     private javax.swing.JLabel labelBackground;
-    private javax.swing.JLabel labelTitle;
     // End of variables declaration//GEN-END:variables
 }

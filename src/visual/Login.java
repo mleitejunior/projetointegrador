@@ -17,7 +17,6 @@ public class Login extends WindowFrame {
         setBackground(new Color(0,0,0,0));
         setBackgroundMovable();
         btnEnviar.setBorderPainted(false); 
-        //btnEnviar.setContentAreaFilled(false); 
         btnEnviar.setFocusPainted(false); 
         btnEnviar.setOpaque(false);
         this.getRootPane().setDefaultButton(btnEnviar);
@@ -49,7 +48,7 @@ public class Login extends WindowFrame {
         getContentPane().add(jLabel3);
         jLabel3.setBounds(490, 480, 130, 20);
 
-        btnEnviar.setBackground(new java.awt.Color(0, 184, 229));
+        btnEnviar.setBackground(new java.awt.Color(0, 157, 229));
         btnEnviar.setFont(new java.awt.Font("Arial", 0, 24)); // NOI18N
         btnEnviar.setForeground(new java.awt.Color(255, 255, 255));
         btnEnviar.setText("ENVIAR");

@@ -54,7 +54,7 @@
     <Component class="javax.swing.JButton" name="btnEnviar">
       <Properties>
         <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-          <Color blue="e5" green="b8" red="0" type="rgb"/>
+          <Color blue="e5" green="9d" red="0" type="rgb"/>
         </Property>
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
           <Font name="Arial" size="24" style="0"/>

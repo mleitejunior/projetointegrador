@@ -54,6 +54,7 @@ public class ExistentProduct extends WindowFrame {
         jLabel1 = new javax.swing.JLabel();
         btnConfirm = new javax.swing.JButton();
         btnCancel = new javax.swing.JButton();
+        jLabel2 = new javax.swing.JLabel();
         labelBackground = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -88,6 +89,12 @@ public class ExistentProduct extends WindowFrame {
         });
         getContentPane().add(btnCancel);
         btnCancel.setBounds(230, 120, 140, 30);
+
+        jLabel2.setFont(new java.awt.Font("Arial", 1, 24)); // NOI18N
+        jLabel2.setForeground(new java.awt.Color(0, 157, 229));
+        jLabel2.setText("PRODUTO EXISTENTE");
+        getContentPane().add(jLabel2);
+        jLabel2.setBounds(90, 10, 270, 30);
 
         labelBackground.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/backgroundexistentproduct.png"))); // NOI18N
         getContentPane().add(labelBackground);
@@ -159,6 +166,7 @@ public class ExistentProduct extends WindowFrame {
     private javax.swing.JButton btnConfirm;
     private javax.swing.JComboBox comboProducts;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel labelBackground;
     private java.util.List<Product> listProducts;
     private javax.swing.JTextField txtQuantity;

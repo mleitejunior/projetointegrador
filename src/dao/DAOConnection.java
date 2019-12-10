@@ -123,6 +123,30 @@ public class DAOConnection {
         return lista;
     }
     
+    public List<Client> getClientsDisplay(){
+        String sql = "SELECT c.idClient, c.name, c.city, c.fu, c.email, c.contact \n" +
+                     "FROM client AS c;";
+        List<Client> lista = new ArrayList<>();
+        try{
+            PreparedStatement pst = getPreparedStatement(sql);
+            ResultSet rs = pst.executeQuery();
+            while(rs.next()){
+                Client obj = new Client();
+                obj.setId(rs.getInt("idClient"));
+                obj.setName(rs.getString("name"));
+                obj.setAdress(rs.getString("city"));
+                obj.setCity(rs.getString("city"));
+                obj.setFu(rs.getString("fu"));
+                obj.setEmail(rs.getString("email"));
+                obj.setContact(rs.getString("contact"));
+                lista.add(obj);
+            }
+        }catch (SQLException e){
+                JOptionPane.showMessageDialog(null, "Erro de SQL no getLista de DAOProduct"+e.getMessage());
+        }
+        return lista;
+    }
+    
     public List<Client> getClientNames() {
         
         
@@ -142,7 +166,7 @@ public class DAOConnection {
         return lista;
     }
     
-        public List<Product> getProductForSale() {
+    public List<Product> getProductForSale() {
         String sql = "SELECT p.name, p.idProduct, p.priceSale, p.quantity FROM product AS p;";
         List<Product> lista = new ArrayList<>();
         try{
@@ -179,6 +203,55 @@ public class DAOConnection {
                 obj.setDate(dt);
                 obj.setUserName(rs.getString("userName"));
                 obj.setClientName(rs.getString("clientName"));
+                lista.add(obj);
+            }
+        }catch (SQLException e){
+                JOptionPane.showMessageDialog(null, "Erro de SQL no getLista de DAOGetSalesDisplay"+e.getMessage());
+        }
+        return lista;
+    }
+    
+    public List<Provider> getProvidersDisplay() {
+        String sql = "SELECT p.companyName, p.ownerName, p.adress, p.city, p.fu, p.cnpj, p.email, p.contact FROM provider AS p;";
+        List<Provider> lista = new ArrayList<>();
+        try{
+            PreparedStatement pst = getPreparedStatement(sql);
+            ResultSet rs = pst.executeQuery();
+            while(rs.next()){
+                Provider obj = new Provider();
+                obj.setCompanyName(rs.getString("companyName"));
+                obj.setOwnerName(rs.getString("ownerName"));
+                obj.setAdress(rs.getString("adress"));
+                obj.setCity(rs.getString("city"));
+                obj.setFu(rs.getString("fu"));
+                obj.setCnpj(rs.getString("cnpj"));
+                obj.setEmail(rs.getString("email"));
+                obj.setContact(rs.getString("contact"));
+                lista.add(obj);
+            }
+        }catch (SQLException e){
+                JOptionPane.showMessageDialog(null, "Erro de SQL no getLista de DAOGetSalesDisplay"+e.getMessage());
+        }
+        return lista;
+    }
+    
+    public List<User> getUsersDisplay() {
+        String sql = "SELECT u.name, u.username, u.city, u.adress, u.fu, u.cpf, u.rg, u.email, u.contact FROM user AS u;";
+        List<User> lista = new ArrayList<>();
+        try{
+            PreparedStatement pst = getPreparedStatement(sql);
+            ResultSet rs = pst.executeQuery();
+            while(rs.next()){
+                User obj = new User();
+                obj.setName(rs.getString("name"));
+                obj.setUsername(rs.getString("username"));
+                obj.setCity(rs.getString("city"));
+                obj.setAdress(rs.getString("adress"));
+                obj.setFu(rs.getString("fu"));
+                obj.setCpf(rs.getString("cpf"));
+                obj.setRg(rs.getString("rg"));
+                obj.setEmail(rs.getString("email"));
+                obj.setContact(rs.getString("contact"));
                 lista.add(obj);
             }
         }catch (SQLException e){

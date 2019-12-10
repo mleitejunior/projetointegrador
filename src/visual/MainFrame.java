@@ -2,6 +2,7 @@ package visual;
 
 import dao.DAOConnection;
 import java.awt.Color;
+import java.awt.Font;
 import java.sql.Connection;
 import java.util.ArrayList;
 import java.util.List;
@@ -20,6 +21,7 @@ public class MainFrame extends WindowFrame {
     public void setDatabase(Connection database) {
         this.database = database;
         atualizaTabelas();
+        setLayout();
         panelClients.setOpaque(false);
         panelUsers.setOpaque(false);
         panelExpenses.setOpaque(false);
@@ -56,18 +58,22 @@ public class MainFrame extends WindowFrame {
         btnAddProduct = new javax.swing.JButton();
         btnEditProduct = new javax.swing.JButton();
         btnDeleteProduct = new javax.swing.JButton();
+        btnReportProductSale = new javax.swing.JButton();
         panelClients = new javax.swing.JPanel();
         scrollTableClients = new javax.swing.JScrollPane();
         tableClients = new javax.swing.JTable();
         btnAddClient = new javax.swing.JButton();
         btnEditClient = new javax.swing.JButton();
         btnDeleteClient = new javax.swing.JButton();
+        btnReportClientRegionSales = new javax.swing.JButton();
         panelSales = new javax.swing.JPanel();
         scrollTableSales = new javax.swing.JScrollPane();
         tableSales = new javax.swing.JTable();
         btnAddSale = new javax.swing.JButton();
         btnEditSale = new javax.swing.JButton();
         btnDeleteSale = new javax.swing.JButton();
+        btnReportSalesPerYear = new javax.swing.JButton();
+        btnReportTypePayments = new javax.swing.JButton();
         panelProviders = new javax.swing.JPanel();
         scrollTableProviders = new javax.swing.JScrollPane();
         tableProviders = new javax.swing.JTable();
@@ -80,17 +86,13 @@ public class MainFrame extends WindowFrame {
         btnAddExpense = new javax.swing.JButton();
         btnEditExpense = new javax.swing.JButton();
         btnDeleteExpense = new javax.swing.JButton();
+        btnReportMonthlyExpenses = new javax.swing.JButton();
         panelUsers = new javax.swing.JPanel();
         scrollTableUsers = new javax.swing.JScrollPane();
         tableUsers = new javax.swing.JTable();
         btnAddUser = new javax.swing.JButton();
         btnEditUser = new javax.swing.JButton();
         btnDeleteUser = new javax.swing.JButton();
-        btnReportProductSale = new javax.swing.JButton();
-        btnReportSalesPerYear = new javax.swing.JButton();
-        btnReportMonthlyExpenses = new javax.swing.JButton();
-        btnReportClientRegionSales = new javax.swing.JButton();
-        btnReportTypePayments = new javax.swing.JButton();
         btnReportNew = new javax.swing.JButton();
         btnFechar2 = new javax.swing.JButton();
         labelBackground = new javax.swing.JLabel();
@@ -98,11 +100,17 @@ public class MainFrame extends WindowFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(null);
 
+        mainTabPanel.setBackground(new java.awt.Color(0, 157, 229));
+        mainTabPanel.setTabLayoutPolicy(javax.swing.JTabbedPane.SCROLL_TAB_LAYOUT);
+        mainTabPanel.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+
         scrollTableProducts.setPreferredSize(new java.awt.Dimension(450, 400));
+
+        tableProducts.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
 
         org.jdesktop.swingbinding.JTableBinding jTableBinding = org.jdesktop.swingbinding.SwingBindings.createJTableBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, listProducts, tableProducts);
         org.jdesktop.swingbinding.JTableBinding.ColumnBinding columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${id}"));
-        columnBinding.setColumnName("Código");
+        columnBinding.setColumnName("Cód.");
         columnBinding.setColumnClass(Integer.class);
         columnBinding.setEditable(false);
         columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${name}"));
@@ -118,7 +126,7 @@ public class MainFrame extends WindowFrame {
         columnBinding.setColumnClass(Double.class);
         columnBinding.setEditable(false);
         columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${quantity}"));
-        columnBinding.setColumnName("Quantidade");
+        columnBinding.setColumnName("Qtd.");
         columnBinding.setColumnClass(Integer.class);
         columnBinding.setEditable(false);
         columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${cost}"));
@@ -132,7 +140,20 @@ public class MainFrame extends WindowFrame {
         bindingGroup.addBinding(jTableBinding);
         jTableBinding.bind();
         scrollTableProducts.setViewportView(tableProducts);
+        if (tableProducts.getColumnModel().getColumnCount() > 0) {
+            tableProducts.getColumnModel().getColumn(0).setMinWidth(50);
+            tableProducts.getColumnModel().getColumn(0).setMaxWidth(50);
+            tableProducts.getColumnModel().getColumn(3).setMinWidth(130);
+            tableProducts.getColumnModel().getColumn(3).setMaxWidth(130);
+            tableProducts.getColumnModel().getColumn(4).setMinWidth(50);
+            tableProducts.getColumnModel().getColumn(4).setMaxWidth(50);
+            tableProducts.getColumnModel().getColumn(5).setMinWidth(130);
+            tableProducts.getColumnModel().getColumn(5).setMaxWidth(130);
+        }
 
+        btnAddProduct.setBackground(new java.awt.Color(0, 157, 229));
+        btnAddProduct.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+        btnAddProduct.setForeground(new java.awt.Color(255, 255, 255));
         btnAddProduct.setText("ADICIONAR PRODUTO");
         btnAddProduct.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -140,9 +161,27 @@ public class MainFrame extends WindowFrame {
             }
         });
 
+        btnEditProduct.setBackground(new java.awt.Color(0, 157, 229));
+        btnEditProduct.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+        btnEditProduct.setForeground(new java.awt.Color(255, 255, 255));
         btnEditProduct.setText("EDITAR PRODUTO");
+        btnEditProduct.setEnabled(false);
 
+        btnDeleteProduct.setBackground(new java.awt.Color(0, 157, 229));
+        btnDeleteProduct.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+        btnDeleteProduct.setForeground(new java.awt.Color(255, 255, 255));
         btnDeleteProduct.setText("EXCLUIR PRODUTO");
+        btnDeleteProduct.setEnabled(false);
+
+        btnReportProductSale.setBackground(new java.awt.Color(0, 157, 229));
+        btnReportProductSale.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+        btnReportProductSale.setForeground(new java.awt.Color(255, 255, 255));
+        btnReportProductSale.setText("RELATÓRIO - Mais Vendidos");
+        btnReportProductSale.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnReportProductSaleActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout panelProductsLayout = new javax.swing.GroupLayout(panelProducts);
         panelProducts.setLayout(panelProductsLayout);
@@ -150,12 +189,13 @@ public class MainFrame extends WindowFrame {
             panelProductsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelProductsLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(scrollTableProducts, javax.swing.GroupLayout.PREFERRED_SIZE, 900, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(scrollTableProducts, javax.swing.GroupLayout.PREFERRED_SIZE, 930, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(panelProductsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(btnAddProduct, javax.swing.GroupLayout.DEFAULT_SIZE, 337, Short.MAX_VALUE)
+                    .addComponent(btnAddProduct, javax.swing.GroupLayout.DEFAULT_SIZE, 279, Short.MAX_VALUE)
                     .addComponent(btnEditProduct, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btnDeleteProduct, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(btnDeleteProduct, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnReportProductSale, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
         panelProductsLayout.setVerticalGroup(
@@ -169,19 +209,27 @@ public class MainFrame extends WindowFrame {
                         .addComponent(btnEditProduct)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(btnDeleteProduct)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(btnReportProductSale)
                         .addGap(0, 0, Short.MAX_VALUE))
-                    .addComponent(scrollTableProducts, javax.swing.GroupLayout.DEFAULT_SIZE, 510, Short.MAX_VALUE))
+                    .addComponent(scrollTableProducts, javax.swing.GroupLayout.DEFAULT_SIZE, 507, Short.MAX_VALUE))
                 .addContainerGap())
         );
 
         mainTabPanel.addTab("PRODUTOS", panelProducts);
 
+        tableClients.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+
         jTableBinding = org.jdesktop.swingbinding.SwingBindings.createJTableBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, listClients, tableClients);
         columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${idClient}"));
-        columnBinding.setColumnName("Código");
+        columnBinding.setColumnName("Cód.");
         columnBinding.setEditable(false);
         columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${name}"));
         columnBinding.setColumnName("Nome do Cliente");
+        columnBinding.setEditable(false);
+        columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${adress}"));
+        columnBinding.setColumnName("Endereço");
+        columnBinding.setColumnClass(String.class);
         columnBinding.setEditable(false);
         columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${city}"));
         columnBinding.setColumnName("Cidade");
@@ -198,17 +246,46 @@ public class MainFrame extends WindowFrame {
         bindingGroup.addBinding(jTableBinding);
         jTableBinding.bind();
         scrollTableClients.setViewportView(tableClients);
+        if (tableClients.getColumnModel().getColumnCount() > 0) {
+            tableClients.getColumnModel().getColumn(0).setMinWidth(50);
+            tableClients.getColumnModel().getColumn(0).setMaxWidth(50);
+            tableClients.getColumnModel().getColumn(4).setMinWidth(50);
+            tableClients.getColumnModel().getColumn(4).setMaxWidth(50);
+        }
 
-        btnAddClient.setText("ADICIONAR PRODUTO");
+        btnAddClient.setBackground(new java.awt.Color(0, 157, 229));
+        btnAddClient.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+        btnAddClient.setForeground(new java.awt.Color(255, 255, 255));
+        btnAddClient.setText("ADICIONAR CLIENTE");
+        btnAddClient.setEnabled(false);
         btnAddClient.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnAddClientActionPerformed(evt);
             }
         });
 
-        btnEditClient.setText("EDITAR PRODUTO");
+        btnEditClient.setBackground(new java.awt.Color(0, 157, 229));
+        btnEditClient.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+        btnEditClient.setForeground(new java.awt.Color(255, 255, 255));
+        btnEditClient.setText("EDITAR CLIENTE");
+        btnEditClient.setEnabled(false);
 
-        btnDeleteClient.setText("EXCLUIR PRODUTO");
+        btnDeleteClient.setBackground(new java.awt.Color(0, 157, 229));
+        btnDeleteClient.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+        btnDeleteClient.setForeground(new java.awt.Color(255, 255, 255));
+        btnDeleteClient.setText("EXCLUIR CLIENTE");
+        btnDeleteClient.setEnabled(false);
+
+        btnReportClientRegionSales.setBackground(new java.awt.Color(0, 157, 229));
+        btnReportClientRegionSales.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+        btnReportClientRegionSales.setForeground(new java.awt.Color(255, 255, 255));
+        btnReportClientRegionSales.setText("RELATÓRIO - Mais Compraram");
+        btnReportClientRegionSales.setEnabled(false);
+        btnReportClientRegionSales.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnReportClientRegionSalesActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout panelClientsLayout = new javax.swing.GroupLayout(panelClients);
         panelClients.setLayout(panelClientsLayout);
@@ -218,10 +295,11 @@ public class MainFrame extends WindowFrame {
                 .addContainerGap()
                 .addComponent(scrollTableClients, javax.swing.GroupLayout.PREFERRED_SIZE, 900, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(panelClientsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(btnEditClient, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btnAddClient, javax.swing.GroupLayout.DEFAULT_SIZE, 337, Short.MAX_VALUE)
-                    .addComponent(btnDeleteClient, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGroup(panelClientsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(btnEditClient, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnDeleteClient, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnReportClientRegionSales, javax.swing.GroupLayout.DEFAULT_SIZE, 309, Short.MAX_VALUE)
+                    .addComponent(btnAddClient, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
         panelClientsLayout.setVerticalGroup(
@@ -235,18 +313,21 @@ public class MainFrame extends WindowFrame {
                         .addComponent(btnEditClient)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(btnDeleteClient)
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addComponent(scrollTableClients, javax.swing.GroupLayout.DEFAULT_SIZE, 510, Short.MAX_VALUE))
-                .addContainerGap())
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(btnReportClientRegionSales)
+                        .addContainerGap(385, Short.MAX_VALUE))
+                    .addComponent(scrollTableClients, javax.swing.GroupLayout.Alignment.TRAILING)))
         );
 
         mainTabPanel.addTab("CLIENTES", panelClients);
 
         panelSales.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
 
+        tableSales.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+
         jTableBinding = org.jdesktop.swingbinding.SwingBindings.createJTableBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, listSales, tableSales);
         columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${idSale}"));
-        columnBinding.setColumnName("Código");
+        columnBinding.setColumnName("Cód.");
         columnBinding.setEditable(false);
         columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${date}"));
         columnBinding.setColumnName("Data da Venda");
@@ -260,7 +341,16 @@ public class MainFrame extends WindowFrame {
         bindingGroup.addBinding(jTableBinding);
         jTableBinding.bind();
         scrollTableSales.setViewportView(tableSales);
+        if (tableSales.getColumnModel().getColumnCount() > 0) {
+            tableSales.getColumnModel().getColumn(0).setMinWidth(50);
+            tableSales.getColumnModel().getColumn(0).setMaxWidth(50);
+            tableSales.getColumnModel().getColumn(1).setMinWidth(130);
+            tableSales.getColumnModel().getColumn(1).setMaxWidth(130);
+        }
 
+        btnAddSale.setBackground(new java.awt.Color(0, 157, 229));
+        btnAddSale.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+        btnAddSale.setForeground(new java.awt.Color(255, 255, 255));
         btnAddSale.setText("ADICIONAR VENDA");
         btnAddSale.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -268,9 +358,37 @@ public class MainFrame extends WindowFrame {
             }
         });
 
-        btnEditSale.setText("EDITAR PRODUTO");
+        btnEditSale.setBackground(new java.awt.Color(0, 157, 229));
+        btnEditSale.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+        btnEditSale.setForeground(new java.awt.Color(255, 255, 255));
+        btnEditSale.setText("EDITAR VENDA");
+        btnEditSale.setEnabled(false);
 
-        btnDeleteSale.setText("EXCLUIR PRODUTO");
+        btnDeleteSale.setBackground(new java.awt.Color(0, 157, 229));
+        btnDeleteSale.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+        btnDeleteSale.setForeground(new java.awt.Color(255, 255, 255));
+        btnDeleteSale.setText("EXCLUIR VENDA");
+        btnDeleteSale.setEnabled(false);
+
+        btnReportSalesPerYear.setBackground(new java.awt.Color(0, 157, 229));
+        btnReportSalesPerYear.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+        btnReportSalesPerYear.setForeground(new java.awt.Color(255, 255, 255));
+        btnReportSalesPerYear.setText("RELATÓRIO - Vendas");
+        btnReportSalesPerYear.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnReportSalesPerYearActionPerformed(evt);
+            }
+        });
+
+        btnReportTypePayments.setBackground(new java.awt.Color(0, 157, 229));
+        btnReportTypePayments.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+        btnReportTypePayments.setForeground(new java.awt.Color(255, 255, 255));
+        btnReportTypePayments.setText("RELATÓRIO - Tipos Pagamento");
+        btnReportTypePayments.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnReportTypePaymentsActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout panelSalesLayout = new javax.swing.GroupLayout(panelSales);
         panelSales.setLayout(panelSalesLayout);
@@ -281,9 +399,11 @@ public class MainFrame extends WindowFrame {
                 .addComponent(scrollTableSales, javax.swing.GroupLayout.PREFERRED_SIZE, 900, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(panelSalesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                    .addComponent(btnEditSale, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 335, Short.MAX_VALUE)
-                    .addComponent(btnAddSale, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 335, Short.MAX_VALUE)
-                    .addComponent(btnDeleteSale, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(btnEditSale, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnDeleteSale, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnReportSalesPerYear, javax.swing.GroupLayout.DEFAULT_SIZE, 309, Short.MAX_VALUE)
+                    .addComponent(btnAddSale, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnReportTypePayments, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         panelSalesLayout.setVerticalGroup(
@@ -291,52 +411,93 @@ public class MainFrame extends WindowFrame {
             .addGroup(panelSalesLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(panelSalesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(scrollTableSales, javax.swing.GroupLayout.PREFERRED_SIZE, 507, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(panelSalesLayout.createSequentialGroup()
                         .addComponent(btnAddSale)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(btnEditSale)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(btnDeleteSale)
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addComponent(scrollTableSales, javax.swing.GroupLayout.DEFAULT_SIZE, 508, Short.MAX_VALUE))
-                .addContainerGap())
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(btnReportSalesPerYear)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(btnReportTypePayments)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         mainTabPanel.addTab("VENDAS", panelSales);
 
+        tableProviders.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+
         jTableBinding = org.jdesktop.swingbinding.SwingBindings.createJTableBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, listProviders, tableProviders);
-        columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ObjectProperty.create());
-        columnBinding.setColumnName("Nome da Empresa");
+        columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${companyName}"));
+        columnBinding.setColumnName(" Empresa");
+        columnBinding.setColumnClass(String.class);
         columnBinding.setEditable(false);
-        columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ObjectProperty.create());
-        columnBinding.setColumnName("Nome do Responsável");
+        columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${ownerName}"));
+        columnBinding.setColumnName(" Responsável");
+        columnBinding.setColumnClass(String.class);
         columnBinding.setEditable(false);
-        columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ObjectProperty.create());
+        columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${adress}"));
         columnBinding.setColumnName("Endereço");
+        columnBinding.setColumnClass(String.class);
         columnBinding.setEditable(false);
-        columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ObjectProperty.create());
+        columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${city}"));
         columnBinding.setColumnName("Cidade");
+        columnBinding.setColumnClass(String.class);
         columnBinding.setEditable(false);
-        columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ObjectProperty.create());
+        columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${fu}"));
         columnBinding.setColumnName("UF");
+        columnBinding.setColumnClass(String.class);
         columnBinding.setEditable(false);
-        columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ObjectProperty.create());
+        columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${cnpj}"));
         columnBinding.setColumnName("CNPJ");
+        columnBinding.setColumnClass(String.class);
         columnBinding.setEditable(false);
-        columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ObjectProperty.create());
+        columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${email}"));
         columnBinding.setColumnName("E-mail");
-        columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ObjectProperty.create());
+        columnBinding.setColumnClass(String.class);
+        columnBinding.setEditable(false);
+        columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${contact}"));
         columnBinding.setColumnName("Contato");
+        columnBinding.setColumnClass(String.class);
         columnBinding.setEditable(false);
         bindingGroup.addBinding(jTableBinding);
         jTableBinding.bind();
         scrollTableProviders.setViewportView(tableProviders);
+        if (tableProviders.getColumnModel().getColumnCount() > 0) {
+            tableProviders.getColumnModel().getColumn(4).setMinWidth(50);
+            tableProviders.getColumnModel().getColumn(4).setMaxWidth(50);
+            tableProviders.getColumnModel().getColumn(5).setMinWidth(60);
+            tableProviders.getColumnModel().getColumn(5).setMaxWidth(60);
+            tableProviders.getColumnModel().getColumn(6).setMinWidth(130);
+            tableProviders.getColumnModel().getColumn(6).setMaxWidth(130);
+            tableProviders.getColumnModel().getColumn(7).setMinWidth(130);
+            tableProviders.getColumnModel().getColumn(7).setMaxWidth(130);
+        }
 
-        btnAddProvider.setText("ADICIONAR PRODUTO");
+        btnAddProvider.setBackground(new java.awt.Color(0, 157, 229));
+        btnAddProvider.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+        btnAddProvider.setForeground(new java.awt.Color(255, 255, 255));
+        btnAddProvider.setText("ADICIONAR FORNECEDOR");
+        btnAddProvider.setEnabled(false);
 
-        btnEditProvider.setText("EDITAR PRODUTO");
+        btnEditProvider.setBackground(new java.awt.Color(0, 157, 229));
+        btnEditProvider.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+        btnEditProvider.setForeground(new java.awt.Color(255, 255, 255));
+        btnEditProvider.setText("EDITAR FORNECEDOR");
+        btnEditProvider.setEnabled(false);
+        btnEditProvider.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEditProviderActionPerformed(evt);
+            }
+        });
 
-        btnDeleteProvider.setText("EXCLUIR PRODUTO");
+        btnDeleteProvider.setBackground(new java.awt.Color(0, 157, 229));
+        btnDeleteProvider.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+        btnDeleteProvider.setForeground(new java.awt.Color(255, 255, 255));
+        btnDeleteProvider.setText("EXCLUIR FORNECEDOR");
+        btnDeleteProvider.setEnabled(false);
 
         javax.swing.GroupLayout panelProvidersLayout = new javax.swing.GroupLayout(panelProviders);
         panelProviders.setLayout(panelProvidersLayout);
@@ -344,11 +505,11 @@ public class MainFrame extends WindowFrame {
             panelProvidersLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelProvidersLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(scrollTableProviders, javax.swing.GroupLayout.PREFERRED_SIZE, 900, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(scrollTableProviders, javax.swing.GroupLayout.PREFERRED_SIZE, 976, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(panelProvidersLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(btnEditProvider, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btnAddProvider, javax.swing.GroupLayout.DEFAULT_SIZE, 337, Short.MAX_VALUE)
+                    .addComponent(btnAddProvider, javax.swing.GroupLayout.DEFAULT_SIZE, 233, Short.MAX_VALUE)
                     .addComponent(btnDeleteProvider, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
@@ -364,11 +525,13 @@ public class MainFrame extends WindowFrame {
                         .addComponent(btnEditProvider)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(btnDeleteProvider)
-                        .addGap(0, 419, Short.MAX_VALUE)))
+                        .addGap(0, 410, Short.MAX_VALUE)))
                 .addContainerGap())
         );
 
         mainTabPanel.addTab("FORNECEDORES", panelProviders);
+
+        tableExpenses.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
 
         jTableBinding = org.jdesktop.swingbinding.SwingBindings.createJTableBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, listExpenses, tableExpenses);
         columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${date}"));
@@ -376,13 +539,13 @@ public class MainFrame extends WindowFrame {
         columnBinding.setColumnClass(java.util.Date.class);
         columnBinding.setEditable(false);
         columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${useMaterial}"));
-        columnBinding.setColumnName("Material de Uso");
+        columnBinding.setColumnName("Material");
         columnBinding.setEditable(false);
         columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${equipment}"));
         columnBinding.setColumnName("Equipamento");
         columnBinding.setEditable(false);
         columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${monthlyTax}"));
-        columnBinding.setColumnName("Juros Mensais");
+        columnBinding.setColumnName("Juros M.");
         columnBinding.setEditable(false);
         columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${rent}"));
         columnBinding.setColumnName("Aluguel");
@@ -402,12 +565,38 @@ public class MainFrame extends WindowFrame {
         bindingGroup.addBinding(jTableBinding);
         jTableBinding.bind();
         scrollTableExpenses.setViewportView(tableExpenses);
+        if (tableExpenses.getColumnModel().getColumnCount() > 0) {
+            tableExpenses.getColumnModel().getColumn(0).setMinWidth(100);
+            tableExpenses.getColumnModel().getColumn(0).setMaxWidth(100);
+        }
 
-        btnAddExpense.setText("ADICIONAR PRODUTO");
+        btnAddExpense.setBackground(new java.awt.Color(0, 157, 229));
+        btnAddExpense.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+        btnAddExpense.setForeground(new java.awt.Color(255, 255, 255));
+        btnAddExpense.setText("ADICIONAR MÊS");
+        btnAddExpense.setEnabled(false);
 
-        btnEditExpense.setText("EDITAR PRODUTO");
+        btnEditExpense.setBackground(new java.awt.Color(0, 157, 229));
+        btnEditExpense.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+        btnEditExpense.setForeground(new java.awt.Color(255, 255, 255));
+        btnEditExpense.setText("EDITAR MÊS");
+        btnEditExpense.setEnabled(false);
 
-        btnDeleteExpense.setText("EXCLUIR PRODUTO");
+        btnDeleteExpense.setBackground(new java.awt.Color(0, 157, 229));
+        btnDeleteExpense.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+        btnDeleteExpense.setForeground(new java.awt.Color(255, 255, 255));
+        btnDeleteExpense.setText("EXCLUIR MÊS");
+        btnDeleteExpense.setEnabled(false);
+
+        btnReportMonthlyExpenses.setBackground(new java.awt.Color(0, 157, 229));
+        btnReportMonthlyExpenses.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+        btnReportMonthlyExpenses.setForeground(new java.awt.Color(255, 255, 255));
+        btnReportMonthlyExpenses.setText("RELATÓRIO - Despesas");
+        btnReportMonthlyExpenses.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnReportMonthlyExpensesActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout panelExpensesLayout = new javax.swing.GroupLayout(panelExpenses);
         panelExpenses.setLayout(panelExpensesLayout);
@@ -415,12 +604,13 @@ public class MainFrame extends WindowFrame {
             panelExpensesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelExpensesLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(scrollTableExpenses, javax.swing.GroupLayout.PREFERRED_SIZE, 924, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(scrollTableExpenses, javax.swing.GroupLayout.PREFERRED_SIZE, 964, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(panelExpensesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(btnAddExpense, javax.swing.GroupLayout.DEFAULT_SIZE, 309, Short.MAX_VALUE)
+                    .addComponent(btnAddExpense, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(btnEditExpense, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btnDeleteExpense, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(btnDeleteExpense, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnReportMonthlyExpenses, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
         panelExpensesLayout.setVerticalGroup(
@@ -434,49 +624,98 @@ public class MainFrame extends WindowFrame {
                         .addComponent(btnEditExpense)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(btnDeleteExpense)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(btnReportMonthlyExpenses)
                         .addGap(0, 0, Short.MAX_VALUE))
-                    .addComponent(scrollTableExpenses, javax.swing.GroupLayout.DEFAULT_SIZE, 521, Short.MAX_VALUE)))
+                    .addComponent(scrollTableExpenses, javax.swing.GroupLayout.DEFAULT_SIZE, 518, Short.MAX_VALUE)))
         );
 
         mainTabPanel.addTab("DESPESAS", panelExpenses);
 
+        tableUsers.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+
         jTableBinding = org.jdesktop.swingbinding.SwingBindings.createJTableBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, listUsers, tableUsers);
-        columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ObjectProperty.create());
-        columnBinding.setColumnName("Nome do Funcionário");
+        columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${name}"));
+        columnBinding.setColumnName("Funcionário");
+        columnBinding.setColumnClass(String.class);
         columnBinding.setEditable(false);
-        columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ObjectProperty.create());
+        columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${username}"));
         columnBinding.setColumnName("Username");
+        columnBinding.setColumnClass(String.class);
         columnBinding.setEditable(false);
-        columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ObjectProperty.create());
+        columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${city}"));
         columnBinding.setColumnName("Cidade");
+        columnBinding.setColumnClass(String.class);
         columnBinding.setEditable(false);
-        columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ObjectProperty.create());
+        columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${adress}"));
         columnBinding.setColumnName("Endereço");
+        columnBinding.setColumnClass(String.class);
         columnBinding.setEditable(false);
-        columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ObjectProperty.create());
+        columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${fu}"));
         columnBinding.setColumnName("UF");
+        columnBinding.setColumnClass(String.class);
         columnBinding.setEditable(false);
-        columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ObjectProperty.create());
+        columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${cpf}"));
         columnBinding.setColumnName("CPF");
+        columnBinding.setColumnClass(String.class);
         columnBinding.setEditable(false);
-        columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ObjectProperty.create());
+        columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${rg}"));
         columnBinding.setColumnName("RG");
+        columnBinding.setColumnClass(String.class);
         columnBinding.setEditable(false);
-        columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ObjectProperty.create());
+        columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${email}"));
         columnBinding.setColumnName("E-mail");
+        columnBinding.setColumnClass(String.class);
         columnBinding.setEditable(false);
-        columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ObjectProperty.create());
+        columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${contact}"));
         columnBinding.setColumnName("Contact");
+        columnBinding.setColumnClass(String.class);
         columnBinding.setEditable(false);
         bindingGroup.addBinding(jTableBinding);
         jTableBinding.bind();
         scrollTableUsers.setViewportView(tableUsers);
+        if (tableUsers.getColumnModel().getColumnCount() > 0) {
+            tableUsers.getColumnModel().getColumn(4).setMinWidth(50);
+            tableUsers.getColumnModel().getColumn(4).setMaxWidth(50);
+            tableUsers.getColumnModel().getColumn(5).setMinWidth(80);
+            tableUsers.getColumnModel().getColumn(5).setMaxWidth(80);
+            tableUsers.getColumnModel().getColumn(6).setMinWidth(60);
+            tableUsers.getColumnModel().getColumn(6).setMaxWidth(60);
+        }
 
-        btnAddUser.setText("ADICIONAR PRODUTO");
+        btnAddUser.setBackground(new java.awt.Color(0, 157, 229));
+        btnAddUser.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+        btnAddUser.setForeground(new java.awt.Color(255, 255, 255));
+        btnAddUser.setText("ADICIONAR FUNCIONÁRIO");
+        btnAddUser.setEnabled(false);
 
-        btnEditUser.setText("EDITAR PRODUTO");
+        btnEditUser.setBackground(new java.awt.Color(0, 157, 229));
+        btnEditUser.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+        btnEditUser.setForeground(new java.awt.Color(255, 255, 255));
+        btnEditUser.setText("EDITAR FUNCIONÁRIO");
+        btnEditUser.setEnabled(false);
+        btnEditUser.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEditUserActionPerformed(evt);
+            }
+        });
 
-        btnDeleteUser.setText("EXCLUIR PRODUTO");
+        btnDeleteUser.setBackground(new java.awt.Color(0, 157, 229));
+        btnDeleteUser.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+        btnDeleteUser.setForeground(new java.awt.Color(255, 255, 255));
+        btnDeleteUser.setText("EXCLUIR FUNCIONÁRIO");
+        btnDeleteUser.setEnabled(false);
+
+        btnReportNew.setBackground(new java.awt.Color(0, 157, 229));
+        btnReportNew.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+        btnReportNew.setForeground(new java.awt.Color(255, 255, 255));
+        btnReportNew.setText("RELATÓRIO - Funcionários");
+        btnReportNew.setEnabled(false);
+        btnReportNew.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnReportNewActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout panelUsersLayout = new javax.swing.GroupLayout(panelUsers);
         panelUsers.setLayout(panelUsersLayout);
@@ -484,12 +723,13 @@ public class MainFrame extends WindowFrame {
             panelUsersLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelUsersLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(scrollTableUsers, javax.swing.GroupLayout.PREFERRED_SIZE, 903, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(scrollTableUsers, javax.swing.GroupLayout.PREFERRED_SIZE, 973, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(panelUsersLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(btnEditUser, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btnAddUser, javax.swing.GroupLayout.DEFAULT_SIZE, 334, Short.MAX_VALUE)
-                    .addComponent(btnDeleteUser, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGroup(panelUsersLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(btnEditUser, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnAddUser, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 236, Short.MAX_VALUE)
+                    .addComponent(btnDeleteUser, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnReportNew, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
         panelUsersLayout.setVerticalGroup(
@@ -503,71 +743,17 @@ public class MainFrame extends WindowFrame {
                         .addComponent(btnEditUser)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(btnDeleteUser)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(btnReportNew)
                         .addGap(0, 0, Short.MAX_VALUE))
-                    .addComponent(scrollTableUsers, javax.swing.GroupLayout.DEFAULT_SIZE, 510, Short.MAX_VALUE))
+                    .addComponent(scrollTableUsers, javax.swing.GroupLayout.DEFAULT_SIZE, 507, Short.MAX_VALUE))
                 .addContainerGap())
         );
 
         mainTabPanel.addTab("FUNCIONÁRIOS", panelUsers);
 
         getContentPane().add(mainTabPanel);
-        mainTabPanel.setBounds(10, 229, 1268, 560);
-
-        btnReportProductSale.setText("RELATÓRIO VENDA DE PRODUTOS");
-        btnReportProductSale.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnReportProductSaleActionPerformed(evt);
-            }
-        });
-        getContentPane().add(btnReportProductSale);
-        btnReportProductSale.setBounds(500, 60, 350, 23);
-
-        btnReportSalesPerYear.setText("RELATÓRIO DE VENDAS");
-        btnReportSalesPerYear.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnReportSalesPerYearActionPerformed(evt);
-            }
-        });
-        getContentPane().add(btnReportSalesPerYear);
-        btnReportSalesPerYear.setBounds(870, 60, 350, 23);
-
-        btnReportMonthlyExpenses.setText("RELATÓRIO DAS DESPESAS DO MÊS");
-        btnReportMonthlyExpenses.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnReportMonthlyExpensesActionPerformed(evt);
-            }
-        });
-        getContentPane().add(btnReportMonthlyExpenses);
-        btnReportMonthlyExpenses.setBounds(500, 100, 350, 23);
-
-        btnReportClientRegionSales.setText("RELATÓRIO DE CLIENTES QUE MAIS COMPRARAM");
-        btnReportClientRegionSales.setEnabled(false);
-        btnReportClientRegionSales.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnReportClientRegionSalesActionPerformed(evt);
-            }
-        });
-        getContentPane().add(btnReportClientRegionSales);
-        btnReportClientRegionSales.setBounds(500, 140, 350, 23);
-
-        btnReportTypePayments.setText("RELATÓRIO TIPOS DE PAGAMENTO");
-        btnReportTypePayments.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnReportTypePaymentsActionPerformed(evt);
-            }
-        });
-        getContentPane().add(btnReportTypePayments);
-        btnReportTypePayments.setBounds(870, 100, 350, 23);
-
-        btnReportNew.setText("RELATÓRIO FUNCIONÁRIOS");
-        btnReportNew.setEnabled(false);
-        btnReportNew.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnReportNewActionPerformed(evt);
-            }
-        });
-        getContentPane().add(btnReportNew);
-        btnReportNew.setBounds(870, 140, 350, 23);
+        mainTabPanel.setBounds(10, 229, 1240, 560);
 
         btnFechar2.setBackground(new java.awt.Color(255, 0, 0));
         btnFechar2.setFont(new java.awt.Font("Arial Black", 0, 8)); // NOI18N
@@ -658,6 +844,14 @@ public class MainFrame extends WindowFrame {
         newSale.setDatabase(database);
         newSale.setVisible(true);
     }//GEN-LAST:event_btnAddSaleActionPerformed
+
+    private void btnEditProviderActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditProviderActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnEditProviderActionPerformed
+
+    private void btnEditUserActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditUserActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnEditUserActionPerformed
 
     /**
      * @param args the command line arguments
@@ -761,13 +955,13 @@ public class MainFrame extends WindowFrame {
             (tableProducts.getCellRect(linha, linha, true));
         }
         
-        listExpenses.clear();
-        listExpenses.addAll(connect.getMonthlyFixedExpense());
-        linha = listExpenses.size()-1;
+        listClients.clear();
+        listClients.addAll(connect.getClientsDisplay());
+        linha = listClients.size()-1;
         if(linha>=0){
-            tableExpenses.setRowSelectionInterval(linha, linha);
-            tableExpenses.scrollRectToVisible
-            (tableExpenses.getCellRect(linha, linha, true));
+            tableClients.setRowSelectionInterval(linha, linha);
+            tableClients.scrollRectToVisible
+            (tableClients.getCellRect(linha, linha, true));
         }
         
         listSales.clear();
@@ -778,6 +972,34 @@ public class MainFrame extends WindowFrame {
             tableSales.scrollRectToVisible
             (tableSales.getCellRect(linha, linha, true));
         }
+        
+        listProviders.clear();
+        listProviders.addAll(connect.getProvidersDisplay());
+        linha = listProviders.size()-1;
+        if(linha>=0){
+            tableProviders.setRowSelectionInterval(linha, linha);
+            tableProviders.scrollRectToVisible
+            (tableProviders.getCellRect(linha, linha, true));
+        }
+        
+        listExpenses.clear();
+        listExpenses.addAll(connect.getMonthlyFixedExpense());
+        linha = listExpenses.size()-1;
+        if(linha>=0){
+            tableExpenses.setRowSelectionInterval(linha, linha);
+            tableExpenses.scrollRectToVisible
+            (tableExpenses.getCellRect(linha, linha, true));
+        }
+        
+        listUsers.clear();
+        listUsers.addAll(connect.getUsersDisplay());
+        linha = listUsers.size()-1;
+        if(linha>=0){
+            tableUsers.setRowSelectionInterval(linha, linha);
+            tableUsers.scrollRectToVisible
+            (tableUsers.getCellRect(linha, linha, true));
+        }
+        
 //        setCalendarValuesInTable();
 
 //        listVenda.clear();
@@ -834,5 +1056,39 @@ public class MainFrame extends WindowFrame {
 
     public void setAccess(int access) {
         this.access = access;
+    }
+    
+    public void setLayout() {
+        btnAddProduct.setBorderPainted(false); 
+        btnDeleteProduct.setFocusPainted(false); 
+        btnEditProduct.setOpaque(false);
+        
+        btnAddClient.setBorderPainted(false); 
+        btnDeleteClient.setFocusPainted(false); 
+        btnEditClient.setOpaque(false);
+        
+        btnAddExpense.setBorderPainted(false); 
+        btnDeleteExpense.setFocusPainted(false); 
+        btnEditExpense.setOpaque(false);
+        
+        btnAddProvider.setBorderPainted(false); 
+        btnDeleteProvider.setFocusPainted(false); 
+        btnEditProvider.setOpaque(false);
+        
+        btnAddSale.setBorderPainted(false); 
+        btnDeleteSale.setFocusPainted(false); 
+        btnEditSale.setOpaque(false);
+        
+        btnAddUser.setBorderPainted(false); 
+        btnDeleteUser.setFocusPainted(false); 
+        btnEditUser.setOpaque(false);
+        
+        tableProducts.getTableHeader().setFont(new Font("Arial", Font.BOLD, 14));
+        tableClients.getTableHeader().setFont(new Font("Arial", Font.BOLD, 14));
+        tableExpenses.getTableHeader().setFont(new Font("Arial", Font.BOLD, 14));
+        tableProviders.getTableHeader().setFont(new Font("Arial", Font.BOLD, 14));
+        tableSales.getTableHeader().setFont(new Font("Arial", Font.BOLD, 14));
+        tableUsers.getTableHeader().setFont(new Font("Arial", Font.BOLD, 14));
+
     }
 }

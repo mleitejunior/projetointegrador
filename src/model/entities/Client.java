@@ -4,6 +4,7 @@ public class Client {
     private Integer id;
     private String name;
     private String adress;
+    private String city;
     private String fu;
     private String email;
     private String contact;    
@@ -33,6 +34,14 @@ public class Client {
         this.adress = adress;
     }
 
+    public String getCity() {
+        return city;
+    }
+
+    public void setCity(String city) {
+        this.city = city;
+    }
+    
     public String getFu() {
         return fu;
     }
